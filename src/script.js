@@ -51,11 +51,13 @@ document.addEventListener("DOMContentLoaded", () => {
         if (StoredSelectedLanguage !== 'arabic' && StoredSelectedLanguage !== 'input') {
           // Set text alignment to left
           document.querySelector('.uc-res .t004 .t-container').style.textAlign = 'left';
-          document.querySelector('.pxb-response').style.direction = 'ltr';
+          document.querySelector('.uc-res .t004 .t-container .t-text').style.direction = 'ltr'
+          // document.querySelector('.pxb-response').style.direction = 'ltr';
         } else {
           // Set text alignment to right
           document.querySelector('.uc-res .t004 .t-container').style.textAlign = 'right';
-          document.querySelector('.pxb-response').style.direction = 'rtl';
+          document.querySelector('.uc-res .t004 .t-container .t-text').style.direction = 'rtl'
+          // document.querySelector('.pxb-response').style.direction = 'rtl';
         }
       });
     })
