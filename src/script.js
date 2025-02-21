@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const responseAreaPreContainer = responseAreaZB.querySelector('.t004 .t-container');
       const responseAreaPreTextwrapper = responseAreaPreContainer.querySelector('.t-text')
       // Initialize <pre> tag
-      responseAreaPreTextwrapper.innerHTML = '<pre class="pxb-response" style="display: none;"></pre>';
+      responseAreaPreTextwrapper.innerHTML = '<pre class="pxb-response" style="display: none; hieght:150px;width: 100%;"></pre>';
       const responseAreaPre = responseAreaZB.querySelector('.pxb-response');
 
       const copyPromptZB = document.querySelector('.uc-copy-prompt');
@@ -75,9 +75,10 @@ document.addEventListener("DOMContentLoaded", () => {
       // Disable and hide
       enhanceBtn.classList.add('disabled');
 
-      step2Title.classList.add('hide');
-      copyPromptZB.classList.add('hide');
-      responseAreaZB.classList.add('hide');
+      // step2Title.classList.add('hide');
+      // responseAreaZB.classList.add('hide');
+      // copyPromptZB.classList.add('hide');
+      copyPromptZB.classList.add('disabled');
 
       // Set the default language to 'input' when the page loads
       localStorage.setItem('ai_lang', 'input')
@@ -287,9 +288,11 @@ document.addEventListener("DOMContentLoaded", () => {
       enhanceBtn.addEventListener('click', async () => {
         if (!enhanceBtn.classList.contains('disabled')) {
           //hide .uc-copy-prompt and .uc-step_title2 before the response is received
-          step2Title.classList.add('hide');
-          copyPromptZB.classList.add('hide');
-          responseAreaZB.classList.add('hide');
+
+          // step2Title.classList.add('hide');
+          // copyPromptZB.classList.add('hide');
+          copyPromptZB.classList.add('disabled');
+          // responseAreaZB.classList.add('hide');
 
           // const prompt = document.querySelector('textarea[name="origPrompt"]').value.trim();
           //   const enhancedPrompt = document.querySelector('.pxb-enhanced-prompt .tn-atom');
@@ -314,9 +317,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             //show .uc-copy-prompt and .uc-step_title2 after the response is received
-            step2Title.classList.remove('hide');
-            responseAreaZB.classList.remove('hide');
-            responseAreaPre.style.display = 'block';
+            // step2Title.classList.remove('hide');
+            // responseAreaZB.classList.remove('hide');
+            // responseAreaPre.style.display = 'block';
 
 
             // Clear previous content
@@ -339,7 +342,8 @@ document.addEventListener("DOMContentLoaded", () => {
               if (done) {
                 console.log('Stream complete');
                 //show the copy button
-                copyPromptZB.classList.remove('hide');
+                // copyPromptZB.classList.remove('hide');
+                copyPromptZB.classList.remove('disabled');
                 return;
               }
 
