@@ -7,76 +7,10 @@
 
 
 document.addEventListener("DOMContentLoaded", () => {
-
-  // Set the default language to 'input' when the page loads
-  localStorage.setItem('ai_lang', 'input')
-  let StoredSelectedLanguage;
-
-
-  // Get and Set the reply language
-  t_onReady(function () {
-    t_onFuncLoad('t396_init', function () {
-      // Get the select element
-      const selectElement = document.querySelector('select.t-select[name="res_lang"]');
-
-      // Map Arabic language names to their short codes
-      const languageMap = {
-        "العربية": "arabic",
-        "الإنجليزية": "english",
-        "الالمانية": "german",
-        "الإسبانية": "spanish",
-        "الفرنسية": "french",
-        "الروسية": "russian",
-      };
-
-      // Add an event listener for the 'change' event
-      selectElement.addEventListener('change', function (event) {
-        // Get the response area element
-        const responseArea = document.querySelector('.uc-res .pxb-response');
-
-        document.querySelector('.uc-copy-prompt').style.display = 'none';
-        document.querySelector('.uc-step_title2').style.display = 'none';
-        // Hide the response area if it is exists
-        if (responseArea) responseArea.style.display = 'none';
-
-        // Get the selected option value (Arabic language name)
-        const selectedLanguage = event.target.value;
-
-        // Get the corresponding short code from the languageMap
-        if (selectedLanguage) {
-          // Save the short code to local storage
-          localStorage.setItem('ai_lang', languageMap[selectedLanguage]);
-
-          // Optional: Log the selected language and short code to the console
-          console.log('Selected Language:', selectedLanguage);
-        } else {
-          localStorage.setItem('ai_lang', 'input')
-        }
-
-        // Get the selected language from local storage
-        StoredSelectedLanguage = localStorage.getItem('ai_lang');
-
-        // Check if the selected language is NOT Arabic or input
-        if (StoredSelectedLanguage !== 'arabic' && StoredSelectedLanguage !== 'input') {
-          // Set text alignment to left
-          document.querySelector('.uc-res .t004 .t-container').style.textAlign = 'left';
-          document.querySelector('.uc-res .t004 .t-container .t-text').style.direction = 'ltr'
-          document.querySelector('.uc-res .t004 .t-container .t-text').style.fontFamily = 'TildaSans';
-        } else {
-          // Set text alignment to right
-          document.querySelector('.uc-res .t004 .t-container').style.textAlign = '';
-          document.querySelector('.uc-res .t004 .t-container .t-text').style.direction = ''
-          document.querySelector('.uc-res .t004 .t-container .t-text').style.fontFamily = 'Cairo';
-        }
-      });
-    })
-  })
-
-
   /** 
-   * Function to update the zoom level of a given element based on the window width
-   * @param {HTMLElement} element - The element to update
-  */
+ * Function to update the zoom level of a given element based on the window width
+ * @param {HTMLElement} element - The element to update
+*/
   const updateZoom = (element) => {
     const windowWidth = window.innerWidth;
 
@@ -116,6 +50,99 @@ document.addEventListener("DOMContentLoaded", () => {
       window.addEventListener("resize", () => updateZoom(element));
     });
   });
+
+  /**
+   * Begin the process of enhancing the prompt
+   */
+
+  // Construct the body object
+  const body = {}
+  const prompt = document.querySelector('textarea[name="origPrompt"]')
+  const enhanceBtn = document.querySelector('.pxb-enhance');
+  const step2Title = document.querySelector('.uc-step_title2');
+  // Get the response area element
+  const responseAreaZB = document.querySelector('.uc-res');
+  const responseAreaPreContainer = responseAreaZB.document.querySelector('.t004 .t-container');
+  const responseAreaPreTextwrapper = responseAreaPreContainer.document.querySelector('.t-text')
+  // Initialize <pre> tag
+  responseAreaPreTextwrapper.innerHTML = '<pre class="pxb-response" style="display: none;"></pre>';
+  const responseAreaPre = responseAreaZB.document.querySelector('.pxb-response');
+
+  const copyPromptZB = document.querySelector('.uc-copy-prompt');
+  const copyPromptBtn = copyPromptZB.querySelector('.pxb-copy-prompt');
+
+  // Set the default language to 'input' when the page loads
+  localStorage.setItem('ai_lang', 'input')
+  let ai_lang = localStorage.getItem('ai_lang') || 'input';
+
+  //always include ai_lang in the body object
+  body.ai_lang = localStorage.getItem('ai_lang') || 'input';
+
+  // Get and Set the reply language
+  t_onReady(function () {
+    t_onFuncLoad('t396_init', function () {
+      // Get the select element
+      const languageSelectElement = document.querySelector('select.t-select[name="res_lang"]');
+
+      // Map Arabic language names to their short codes
+      const languageMap = {
+        "العربية": "arabic",
+        "الإنجليزية": "english",
+        "الالمانية": "german",
+        "الإسبانية": "spanish",
+        "الفرنسية": "french",
+        "الروسية": "russian",
+      };
+
+
+      // Add an event listener for the 'change' event
+      languageSelectElement.addEventListener('change', function (event) {
+
+
+        // copyPromptZB.style.display = 'none';
+        copyPromptBtn.style.display = 'none';
+        step2Title.style.display = 'none';
+        // Hide the response area if exists
+        if (responseAreaPre) responseAreaPre.style.display = 'none';
+
+        // Get the selected option value (Arabic language name)
+        const selectedLanguage = event.target.value;
+
+        // Get the corresponding short code from the languageMap
+        if (selectedLanguage) {
+          // Save the short code to local storage
+          localStorage.setItem('ai_lang', languageMap[selectedLanguage]);
+
+          // Optional: Log the selected language and short code to the console
+          console.log('Selected Language:', selectedLanguage);
+        } else {
+          localStorage.setItem('ai_lang', 'input')
+        }
+
+        // Get the language selected by the user from local storage
+        ai_lang = localStorage.getItem('ai_lang') || 'input';
+
+        //include ai_lang in the body object
+        body.ai_lang = ai_lang;
+
+        // Check if the selected language is NOT Arabic or input
+        if (ai_lang !== 'arabic' && ai_lang !== 'input') {
+          // Set text alignment to left
+          responseAreaPreContainer.style.textAlign = 'left';
+          responseAreaPreTextwrapper.style.direction = 'ltr'
+          responseAreaPreTextwrapper.style.fontFamily = 'TildaSans';
+        } else {
+          // Set text alignment to right
+          responseAreaPreContainer.style.textAlign = '';
+          responseAreaPreTextwrapper.style.direction = ''
+          responseAreaPreTextwrapper.style.fontFamily = 'Cairo';
+        }
+      });
+    })
+  })
+
+
+
 
 
   // document.querySelector('.pxb-enhance').addEventListener('click', async () => {
@@ -214,119 +241,138 @@ document.addEventListener("DOMContentLoaded", () => {
   //   }
   // });
 
-  /**
-   * Enhance the prompt using the Plz AI API
-   * Hint: Using stream processing to display the response text in real-time
-   */
-  document.querySelector('.pxb-enhance').addEventListener('click', async () => {
-    //hide .uc-copy-prompt and .uc-step_title2 before the response is received
-    document.querySelector('.uc-copy-prompt').style.display = 'none';
-    document.querySelector('.uc-step_title2').style.display = 'none';
-    document.querySelector('.uc-res').style.display = 'none';
-
-    const prompt = document.querySelector('textarea[name="origPrompt"]').value;
-    //   const enhancedPrompt = document.querySelector('.pxb-enhanced-prompt .tn-atom');
-    const enhancedPrompt = document.querySelector('.uc-res .t-text');
-
-    // Get the language selected by the user
-    const ai_lang = localStorage.getItem('ai_lang') || 'input';
-    // Initialize <pre> tag
-    enhancedPrompt.innerHTML = '<pre class="pxb-response"></pre>';
-    try {
-      const response = await fetch('https://api.plz-ai.me/v1/gp', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'text/plain',
-        },
-        body: JSON.stringify({
-          prompt,
-          ai_lang: ai_lang
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      //show .uc-copy-prompt and .uc-step_title2 after the response is received
-      document.querySelector('.uc-step_title2').style.display = 'block';
-      document.querySelector('.uc-res').style.display = 'block';
 
 
-      // Clear previous content
-      enhancedPrompt.innerHTML = '<pre class="pxb-response"></pre>'; // Initialize <pre> tag
-      const preElement = enhancedPrompt.querySelector('.pxb-response');
 
-      // Check if the selected language is NOT Arabic or input to set the font-family
-      if (StoredSelectedLanguage && StoredSelectedLanguage !== 'arabic' && StoredSelectedLanguage !== 'input') {
-        // Set font-family to TildaSans for left alignment
-        document.querySelector('.uc-res .t004 .t-container .pxb-response').style.fontFamily = 'TildaSans';
-      } else {
-        document.querySelector('.uc-res .t004 .t-container .pxb-response').style.fontFamily = 'Cairo';
-      }
-
-      // Get the readable stream from the response body
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
-
-      // Function to process each chunk of the stream
-      const processStream = async ({ done, value }) => {
-        if (done) {
-          console.log('Stream complete');
-          //show the copy button
-          document.querySelector('.uc-copy-prompt').style.display = 'block';
-          return;
-        }
-
-        // Decode the chunk
-        const chunk = decoder.decode(value, { stream: true });
-
-        // Append the chunk to the <pre> element
-        preElement.textContent += chunk;
-
-        // Read the next chunk
-        return reader.read().then(processStream);
-      };
-
-      // Start processing the stream
-      await reader.read().then(processStream);
-    } catch (error) {
-      console.error('There has been a problem with your fetch operation:', error);
-    }
-  });
-
-  /**
-   * Copy the enhanced prompt to the clipboard
-   */
-  function copyPrompt(e) {
-    let txt = e.querySelector('.tn-atom')
-    let startText = txt.innerText
-    let textToCopy = document.querySelector('.uc-res .t-text .pxb-response').textContent
-    navigator.clipboard.writeText(textToCopy)
-      .then(() => {
-        txt.innerText = 'Copied - All Done'
-        console.log('Prompt copied to clipboard');
-        setTimeout(() => {
-          txt.innerText = startText;
-        }, 3000);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+  // Include prompt only if it is not empty
+  if (prompt.value.trim() !== '') {
+    body.prompt = prompt.value.trim();
   }
 
-  /**
-   * Copy the enhanced prompt to the clipboard
-   */
-  document.querySelector('.pxb-copy-prompt').addEventListener('click', function () {
-    copyPrompt(this);
-  })
+  // Add an event listener for the 'input' event
+  prompt.addEventListener('input', function () {
+    // Check if the input has a value
+    if (prompt.value.trim() !== '') {
+      // Include the prompt in the body object
+      body.prompt = prompt.value.trim();
+      // Show the button
+      enhanceBtn.style.display = 'block';
+    } else {
+      // Hide the button
+      enhanceBtn.style.display = 'none';
+    }
 
-  //Hint: using the following code to add the onclick event to the element after 5 seconds
-  // document.querySelectorAll(".pxb-copy-prompt").forEach(function (element) {
-  //   setTimeout(() => {
-  //     element.setAttribute("onclick", "copyPrompt(this)");
-  //   }, 5000);
-  // })
-});
+    /**
+     * Enhance the prompt using the Plz AI API
+     * Hint: Using stream processing to display the response text in real-time
+     */
+    document.querySelector('.pxb-enhance').addEventListener('click', async () => {
+      //hide .uc-copy-prompt and .uc-step_title2 before the response is received
+      copyPromptZB.style.display = 'none';
+      step2Title.style.display = 'none';
+      responseAreaZB.style.display = 'none';
+
+      // const prompt = document.querySelector('textarea[name="origPrompt"]').value.trim();
+      //   const enhancedPrompt = document.querySelector('.pxb-enhanced-prompt .tn-atom');
+      // const enhancedPrompt = document.querySelector('.uc-res .t-text');
+
+      // Get the language selected by the user
+      ai_lang = localStorage.getItem('ai_lang') || 'input';
+      // Initialize <pre> tag
+      // responseAreaPreTextwrapper.innerHTML = '<pre class="pxb-response"></pre>';
+      responseAreaPre.innerHTML = '';
+      try {
+        const response = await fetch('https://api.plz-ai.me/v1/gp', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'text/plain',
+          },
+          body: JSON.stringify(body),
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        //show .uc-copy-prompt and .uc-step_title2 after the response is received
+        step2Title.style.display = 'block';
+        responseAreaZB.style.display = 'block';
+        // copyPromptZB.style.display = 'block';
+
+
+        // Clear previous content
+        // responseAreaPreTextwrapper.innerHTML = '<pre class="pxb-response"></pre>'; // Initialize <pre> tag
+
+        // Check if the selected language is NOT Arabic or input to set the font-family
+        if (ai_lang && ai_lang !== 'arabic' && ai_lang !== 'input') {
+          // Set font-family to TildaSans for left alignment
+          responseAreaPre.style.fontFamily = 'TildaSans';
+        } else {
+          responseAreaPre.style.fontFamily = 'Cairo';
+        }
+
+        // Get the readable stream from the response body
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+
+        // Function to process each chunk of the stream
+        const processStream = async ({ done, value }) => {
+          if (done) {
+            console.log('Stream complete');
+            //show the copy button
+            copyPromptZB.style.display = 'block';
+            return;
+          }
+
+          // Decode the chunk
+          const chunk = decoder.decode(value, { stream: true });
+
+          // Append the chunk to the <pre> element
+          responseAreaPre.textContent += chunk;
+
+          // Read the next chunk
+          return reader.read().then(processStream);
+        };
+
+        // Start processing the stream
+        await reader.read().then(processStream);
+      } catch (error) {
+        console.error('There has been a problem with your fetch operation:', error);
+      }
+    });
+
+    /**
+     * Copy the enhanced prompt to the clipboard
+     */
+    function copyPrompt(e) {
+      let txt = e.querySelector('.tn-atom')
+      let startText = txt.innerText
+      let textToCopy = responseAreaPre.textContent
+      navigator.clipboard.writeText(textToCopy)
+        .then(() => {
+          txt.innerText = 'Copied - All Done'
+          console.log('Prompt copied to clipboard');
+          setTimeout(() => {
+            txt.innerText = startText;
+          }, 3000);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    }
+
+    /**
+     * Copy the enhanced prompt to the clipboard
+     */
+    copyPromptBtn.addEventListener('click', function () {
+      copyPrompt(this);
+    })
+
+    //Hint: using the following code to add the onclick event to the element after 5 seconds
+    // document.querySelectorAll(".pxb-copy-prompt").forEach(function (element) {
+    //   setTimeout(() => {
+    //     element.setAttribute("onclick", "copyPrompt(this)");
+    //   }, 5000);
+    // })
+  });
 
