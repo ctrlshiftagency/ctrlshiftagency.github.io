@@ -138,6 +138,10 @@ document.addEventListener("DOMContentLoaded", () => {
  * Hint: Using stream processing to display the response text in real-time
  */
 document.querySelector('.pxb-enhance').addEventListener('click', async () => {
+  //hide .uc-copy-prompt and .uc-step_title2 before the response is received
+  document.querySelector('.uc-copy-prompt').style.display = 'none';
+  document.querySelector('.uc-step_title2').style.display = 'none';
+
   const prompt = document.querySelector('textarea[name="origPrompt"]').value;
   //   const enhancedPrompt = document.querySelector('.pxb-enhanced-prompt .tn-atom');
   const enhancedPrompt = document.querySelector('.uc-res .t-text');
