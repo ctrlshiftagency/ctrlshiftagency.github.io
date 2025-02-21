@@ -36,6 +36,10 @@
   font-size: 14px !important;
 }
 
+.pxb-card .tn-atom:hover {
+  background-color: #f3db51 !important;
+}
+
 /* Hide and disable*/
 .hide {
   display: none !important;
