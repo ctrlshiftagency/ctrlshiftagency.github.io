@@ -1,14 +1,11 @@
-.t004 .t-col_8 {
+.uc-res .t004 .t-col_8 {
   max-width: 800px;
 }
 
-.t004 .t-col {
+.uc-res .t004 .t-col {
   margin-left: 0;
 }
 
-.uc-scale-container .t120 .t-col {
-  margin-left: 40px;
-}
 .pxb-enhance {
   cursor: pointer;
 }
@@ -34,6 +31,7 @@
 
 /* Hide */
 .uc-copy-prompt,
-.uc-step_title2 {
+.uc-step_title2,
+.uc-scale-container {
   display: none;
 }

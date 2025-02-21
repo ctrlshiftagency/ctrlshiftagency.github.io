@@ -141,6 +141,7 @@ document.querySelector('.pxb-enhance').addEventListener('click', async () => {
   //hide .uc-copy-prompt and .uc-step_title2 before the response is received
   document.querySelector('.uc-copy-prompt').style.display = 'none';
   document.querySelector('.uc-step_title2').style.display = 'none';
+  document.querySelector('.uc-res').style.display = 'none';
 
   const prompt = document.querySelector('textarea[name="origPrompt"]').value;
   //   const enhancedPrompt = document.querySelector('.pxb-enhanced-prompt .tn-atom');
@@ -164,6 +165,7 @@ document.querySelector('.pxb-enhance').addEventListener('click', async () => {
 
     //show .uc-copy-prompt and .uc-step_title2 after the response is received
     document.querySelector('.uc-step_title2').style.display = 'block';
+    document.querySelector('.uc-res').style.display = 'block';
 
 
     // Clear previous content
