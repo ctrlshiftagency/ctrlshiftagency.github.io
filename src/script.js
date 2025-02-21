@@ -10,6 +10,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Set the default language to 'input' when the page loads
   localStorage.setItem('ai_lang', 'input')
+  // Get the selected language from local storage
+  const selectedLanguage = localStorage.getItem('ai_lang');
+
+  // Check if the selected language is NOT Arabic or input
+  if (selectedLanguage !== 'arabic' && selectedLanguage !== 'input') {
+    // Set text alignment to left
+    document.querySelector('.uc-res .t004 .t-container').style.textAlign = 'left';
+  } else {
+    // Set text alignment to right
+    document.querySelector('.uc-res .t004 .t-container').style.textAlign = 'right';
+  }
 
   // Get and Set the reply language
   t_onReady(function () {
@@ -39,17 +50,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
           // Optional: Log the selected language and short code to the console
           console.log('Selected Language:', selectedLanguage);
-          if (selectedLanguage != 'العربية' || selectedLanguage != 'input') {
-            document.querySelector('.uc-res .t004 .t-container').style.textAlign = 'left!important';
-          } else {
-            document.querySelector('.uc-res .t004 .t-container').style.textAlign = 'right!important';
-          }
         } else {
           localStorage.setItem('ai_lang', 'input')
         }
-
-
-
       });
     })
   })
