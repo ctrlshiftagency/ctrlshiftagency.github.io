@@ -175,7 +175,7 @@ document.querySelector('.pxb-enhance').addEventListener('click', async () => {
       if (done) {
         console.log('Stream complete');
         //show the copy button
-        document.querySelector('.pxb-copy-prompt').style.display = 'block';
+        document.querySelector('.uc-copy-prompt').style.display = 'block';
         return;
       }
 
