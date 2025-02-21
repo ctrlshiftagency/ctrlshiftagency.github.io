@@ -310,7 +310,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             if (!response.ok) {
-              enhanceBtn.classList.remove('disabled');
               throw new Error('Network response was not ok');
             }
 
@@ -363,6 +362,7 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
               responseAreaPre.innerHTML = 'عذرًا، حدث خطأ أثناء معالجة طلبك. يرجى المحاولة مرة أخرى لاحقًا.'
             }
+            enhanceBtn.classList.remove('disabled');
             console.error('There has been a problem with your fetch operation:', error);
           }
         }
