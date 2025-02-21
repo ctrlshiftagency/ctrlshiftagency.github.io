@@ -56,12 +56,12 @@ document.addEventListener("DOMContentLoaded", () => {
           // Set text alignment to left
           document.querySelector('.uc-res .t004 .t-container').style.textAlign = 'left';
           document.querySelector('.uc-res .t004 .t-container .t-text').style.direction = 'ltr'
-          document.querySelector('.pxb-response').style.fontFamily = 'TildaSans';
+          document.querySelector('.uc-res .t004 .t-container .t-text').style.fontFamily = 'TildaSans';
         } else {
           // Set text alignment to right
           document.querySelector('.uc-res .t004 .t-container').style.textAlign = '';
           document.querySelector('.uc-res .t004 .t-container .t-text').style.direction = ''
-          document.querySelector('.pxb-response').style.fontFamily = 'Cairo';
+          document.querySelector('.uc-res .t004 .t-container .t-text').style.fontFamily = 'Cairo';
         }
       });
     })
