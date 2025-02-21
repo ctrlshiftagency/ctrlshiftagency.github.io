@@ -42,3 +42,9 @@
 .uc-scale-container {
   display: none;
 }
+
+.disabled {
+  opacity: 0.5; /* Make it look faded */
+  pointer-events: none; /* Disable clicks */
+  cursor: not-allowed; /* Change the cursor */
+}

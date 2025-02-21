@@ -265,17 +265,20 @@ document.addEventListener("DOMContentLoaded", () => {
           // Include the prompt in the body object
           body.prompt = prompt.value.trim();
           // Show the button
-          enhanceBtn.querySelector('.tn-atom').style.display = 'block';
+          // Enable the div by removing the 'disabled' class
+          enhanceBtn.classList.remove('disabled');
         } else {
-          // Hide the button
-          enhanceBtn.querySelector('.tn-atom').style.display = 'none';
-        }
 
-        /**
-         * Enhance the prompt using the Plz AI API
-         * Hint: Using stream processing to display the response text in real-time
-         */
-        enhanceBtn.addEventListener('click', async () => {
+          // Disable the div by adding the 'disabled' class
+          enhanceBtn.classList.add('disabled');
+        }
+      });
+      /**
+       * Enhance the prompt using the Plz AI API
+       * Hint: Using stream processing to display the response text in real-time
+       */
+      enhanceBtn.addEventListener('click', async () => {
+        if (!enhanceBtn.classList.contains('disabled')) {
           //hide .uc-copy-prompt and .uc-step_title2 before the response is received
           copyPromptZB.style.display = 'none';
           step2Title.style.display = 'none';
@@ -348,42 +351,42 @@ document.addEventListener("DOMContentLoaded", () => {
           } catch (error) {
             console.error('There has been a problem with your fetch operation:', error);
           }
-        });
-
-        /**
-         * Copy the enhanced prompt to the clipboard
-         */
-        function copyPrompt(e) {
-          let txt = e.querySelector('.tn-atom')
-          let startText = txt.innerText
-          let textToCopy = responseAreaPre.textContent
-          navigator.clipboard.writeText(textToCopy)
-            .then(() => {
-              txt.innerText = 'Copied - All Done'
-              console.log('Prompt copied to clipboard');
-              setTimeout(() => {
-                txt.innerText = startText;
-              }, 3000);
-            })
-            .catch((error) => {
-              console.error('Error:', error);
-            });
         }
-
-        /**
-         * Copy the enhanced prompt to the clipboard
-         */
-        copyPromptBtn.addEventListener('click', function () {
-          copyPrompt(this);
-        })
-
-        //Hint: using the following code to add the onclick event to the element after 5 seconds
-        // document.querySelectorAll(".pxb-copy-prompt").forEach(function (element) {
-        //   setTimeout(() => {
-        //     element.setAttribute("onclick", "copyPrompt(this)");
-        //   }, 5000);
-        // })
       });
-    })
+
+      /**
+       * Copy the enhanced prompt to the clipboard
+       */
+      function copyPrompt(e) {
+        let txt = e.querySelector('.tn-atom')
+        let startText = txt.innerText
+        let textToCopy = responseAreaPre.textContent
+        navigator.clipboard.writeText(textToCopy)
+          .then(() => {
+            txt.innerText = 'Copied - All Done'
+            console.log('Prompt copied to clipboard');
+            setTimeout(() => {
+              txt.innerText = startText;
+            }, 3000);
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+      }
+
+      /**
+       * Copy the enhanced prompt to the clipboard
+       */
+      copyPromptBtn.addEventListener('click', function () {
+        copyPrompt(this);
+      })
+
+      //Hint: using the following code to add the onclick event to the element after 5 seconds
+      // document.querySelectorAll(".pxb-copy-prompt").forEach(function (element) {
+      //   setTimeout(() => {
+      //     element.setAttribute("onclick", "copyPrompt(this)");
+      //   }, 5000);
+      // })
+    });
   })
-});
+})
