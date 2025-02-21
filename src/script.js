@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const responseAreaPreContainer = responseAreaZB.querySelector('.t004 .t-container');
       const responseAreaPreTextwrapper = responseAreaPreContainer.querySelector('.t-text')
       // Initialize <pre> tag
-      responseAreaPreTextwrapper.innerHTML = '<pre class="pxb-response" height:120px;"></pre>';
+      responseAreaPreTextwrapper.innerHTML = '<pre class="pxb-response" style="height:100px;"></pre>';
       const responseAreaPre = responseAreaZB.querySelector('.pxb-response');
 
       const copyPromptZB = document.querySelector('.uc-copy-prompt');
