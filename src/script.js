@@ -72,8 +72,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const copyPromptZB = document.querySelector('.uc-copy-prompt');
       const copyPromptBtn = copyPromptZB.querySelector('.pxb-copy-prompt');
 
-      // Disable the div by adding the 'disabled' class
+      // Disable and hide
       enhanceBtn.classList.add('disabled');
+
+      step2Title.classList.add('hide');
+      copyPromptZB.classList.add('hide');
+      responseAreaZB.classList.add('hide');
 
       // Set the default language to 'input' when the page loads
       localStorage.setItem('ai_lang', 'input')
