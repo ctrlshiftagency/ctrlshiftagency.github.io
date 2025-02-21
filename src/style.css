@@ -1,13 +1,13 @@
 .t004 .t-col_8 {
-  /* max-width: 800px; */
+  max-width: 800px;
 }
 
 .t004 .t-col {
-  /* margin-left: 0; */
+  margin-left: 0;
 }
 
 .uc-scale-container .t120 .t-col {
-  margin-left: 80px;
+  margin-left: 40px;
 }
 .pxb-enhance {
   cursor: pointer;
