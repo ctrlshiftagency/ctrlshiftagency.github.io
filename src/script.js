@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Set the default language to 'input' when the page loads
   localStorage.setItem('ai_lang', 'input')
+  let StoredSelectedLanguage;
 
 
   // Get and Set the reply language
@@ -50,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Get the selected language from local storage
-        const StoredSelectedLanguage = localStorage.getItem('ai_lang');
+        StoredSelectedLanguage = localStorage.getItem('ai_lang');
 
         // Check if the selected language is NOT Arabic or input
         if (StoredSelectedLanguage !== 'arabic' && StoredSelectedLanguage !== 'input') {
@@ -58,13 +59,11 @@ document.addEventListener("DOMContentLoaded", () => {
           document.querySelector('.uc-res .t004 .t-container').style.textAlign = 'left';
           document.querySelector('.uc-res .t004 .t-container .t-text').style.direction = 'ltr'
           document.querySelector('.uc-res .t004 .t-container .t-text').style.fontFamily = 'TildaSans';
-          document.querySelector('.uc-res .t004 .t-container .pxb-response').style.fontFamily = 'TildaSans';
         } else {
           // Set text alignment to right
           document.querySelector('.uc-res .t004 .t-container').style.textAlign = '';
           document.querySelector('.uc-res .t004 .t-container .t-text').style.direction = ''
           document.querySelector('.uc-res .t004 .t-container .t-text').style.fontFamily = 'Cairo';
-          document.querySelector('.uc-res .t004 .t-container .pxb-response').style.fontFamily = 'Cairo';
         }
       });
     })
@@ -228,6 +227,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Get the language selected by the user
     const ai_lang = localStorage.getItem('ai_lang') || 'input';
+    // Initialize <pre> tag
+    enhancedPrompt.innerHTML = '<pre class="pxb-response"></pre>';
     try {
       const response = await fetch('https://api.plz-ai.me/v1/gp', {
         method: 'POST',
@@ -252,6 +253,14 @@ document.addEventListener("DOMContentLoaded", () => {
       // Clear previous content
       enhancedPrompt.innerHTML = '<pre class="pxb-response"></pre>'; // Initialize <pre> tag
       const preElement = enhancedPrompt.querySelector('.pxb-response');
+
+      // Check if the selected language is NOT Arabic or input to set the font-family
+      if (StoredSelectedLanguage && StoredSelectedLanguage !== 'arabic' && StoredSelectedLanguage !== 'input') {
+        // Set font-family to TildaSans for left alignment
+        document.querySelector('.uc-res .t004 .t-container .pxb-response').style.fontFamily = 'TildaSans';
+      } else {
+        document.querySelector('.uc-res .t004 .t-container .pxb-response').style.fontFamily = 'Cairo';
+      }
 
       // Get the readable stream from the response body
       const reader = response.body.getReader();
