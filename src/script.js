@@ -174,6 +174,8 @@ document.querySelector('.pxb-enhance').addEventListener('click', async () => {
     const processStream = async ({ done, value }) => {
       if (done) {
         console.log('Stream complete');
+        //show the copy button
+        document.querySelector('.pxb-copy-prompt').style.display = 'block';
         return;
       }
 
@@ -189,9 +191,6 @@ document.querySelector('.pxb-enhance').addEventListener('click', async () => {
 
     // Start processing the stream
     await reader.read().then(processStream);
-    //show the copy button
-    document.querySelector('.pxb-copy-prompt').style.display = 'block';
-
   } catch (error) {
     console.error('There has been a problem with your fetch operation:', error);
   }
