@@ -31,8 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
       // Add an event listener for the 'change' event
       selectElement.addEventListener('change', function (event) {
         document.querySelector('.uc-copy-prompt').style.display = 'none';
-        document.querySelector('.uc-step_title2').style.innerText = '';
-        document.querySelector('.uc-res').style.display = 'none';
+        // document.querySelector('.uc-step_title2').style.display = 'none';
+        document.querySelector('.uc-res').style.innerText = '';
 
         // Get the selected option value (Arabic language name)
         const selectedLanguage = event.target.value;
