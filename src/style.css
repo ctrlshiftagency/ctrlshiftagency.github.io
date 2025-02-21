@@ -36,11 +36,9 @@
   font-size: 14px !important;
 }
 
-/* Hide */
-.uc-copy-prompt,
-.uc-step_title2,
-.uc-scale-container {
-  display: none;
+/* Hide and disable*/
+.hide {
+  display: none !important;
 }
 
 .disabled {
