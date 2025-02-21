@@ -246,6 +246,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Include prompt only if it is not empty
   if (prompt.value.trim() !== '') {
+    enhanceBtn.querySelector('.tn-atom').style.display = 'none';
     body.prompt = prompt.value.trim();
   }
 
@@ -256,17 +257,17 @@ document.addEventListener("DOMContentLoaded", () => {
       // Include the prompt in the body object
       body.prompt = prompt.value.trim();
       // Show the button
-      enhanceBtn.style.display = 'block';
+      enhanceBtn.querySelector('.tn-atom').style.display = 'block';
     } else {
       // Hide the button
-      enhanceBtn.style.display = 'none';
+      enhanceBtn.querySelector('.tn-atom').style.display = 'none';
     }
 
     /**
      * Enhance the prompt using the Plz AI API
      * Hint: Using stream processing to display the response text in real-time
      */
-    document.querySelector('.pxb-enhance').addEventListener('click', async () => {
+    enhanceBtn.addEventListener('click', async () => {
       //hide .uc-copy-prompt and .uc-step_title2 before the response is received
       copyPromptZB.style.display = 'none';
       step2Title.style.display = 'none';
