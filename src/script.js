@@ -31,10 +31,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Add an event listener for the 'change' event
       selectElement.addEventListener('change', function (event) {
+        // Get the response area element
+        const responseArea = document.querySelector('.uc-res .pxb-response');
+
         document.querySelector('.uc-copy-prompt').style.display = 'none';
         document.querySelector('.uc-step_title2').style.display = 'none';
-        // document.querySelector('.uc-res .pxb-response').style.innerText = '';
-        document.querySelector('.uc-res .pxb-response').style.display = 'none';
+        // Hide the response area if it is exists
+        if (responseArea) responseArea.style.display = 'none';
 
         // Get the selected option value (Arabic language name)
         const selectedLanguage = event.target.value;
