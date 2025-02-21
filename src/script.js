@@ -358,17 +358,11 @@ document.addEventListener("DOMContentLoaded", () => {
             // Start processing the stream
             await reader.read().then(processStream);
           } catch (error) {
-            responseAreaPre.innerHTML = `
-              if (ai_lang !== 'arabic') {
-                <div style="text-align: left; font-family: 'TildaSans';">
-                  <p>Sorry, an error occurred while processing your request. Please try again later.</p>
-                </div>
-              } else {
-                <div style="text-align: right; font-family: 'Cairo';">
-                  <p>عذرًا، حدث خطأ أثناء معالجة طلبك. يرجى المحاولة مرة أخرى لاحقًا.</p>
-                </div>
-              }
-              `;
+            if (ai_lang !== 'arabic' && ai_lang !== 'input') {
+              responseAreaPre.innerHTML = 'Sorry, an error occurred while processing your request. Please try again later.'
+            } else {
+              responseAreaPre.innerHTML = 'عذرًا، حدث خطأ أثناء معالجة طلبك. يرجى المحاولة مرة أخرى لاحقًا.'
+            }
             console.error('There has been a problem with your fetch operation:', error);
           }
         }
