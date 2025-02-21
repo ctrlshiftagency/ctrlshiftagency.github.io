@@ -107,11 +107,13 @@ document.addEventListener("DOMContentLoaded", () => {
       languageSelectElement.addEventListener('change', function (event) {
 
 
-        // copyPromptZB.style.display = 'none';
-        copyPromptBtn.style.display = 'none';
-        step2Title.style.display = 'none';
+        responseAreaPre.innerHTML = '';
+        copyPromptZB.classList.add('disabled');
+
+        // copyPromptBtn.style.display = 'none';
+        // step2Title.style.display = 'none';
         // Hide the response area if exists
-        if (responseAreaPre) responseAreaPre.style.display = 'none';
+        // if (responseAreaPre) responseAreaPre.style.display = 'none';
 
         // Get the selected option value (Arabic language name)
         const selectedLanguage = event.target.value;
