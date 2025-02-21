@@ -55,8 +55,8 @@ document.addEventListener("DOMContentLoaded", () => {
           // document.querySelector('.pxb-response').style.direction = 'ltr';
         } else {
           // Set text alignment to right
-          document.querySelector('.uc-res .t004 .t-container').style.textAlign = 'right';
-          document.querySelector('.uc-res .t004 .t-container .t-text').style.direction = 'rtl'
+          document.querySelector('.uc-res .t004 .t-container').style.textAlign = '';
+          document.querySelector('.uc-res .t004 .t-container .t-text').style.direction = ''
           // document.querySelector('.pxb-response').style.direction = 'rtl';
         }
       });
