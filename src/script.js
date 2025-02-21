@@ -215,7 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
           'Content-Type': 'text/plain',
         },
         body: JSON.stringify({
-          prompt: prompt,
+          prompt,
           ai_lang: ai_lang
         }),
       });
