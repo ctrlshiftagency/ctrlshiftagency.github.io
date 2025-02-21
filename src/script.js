@@ -289,16 +289,11 @@ document.addEventListener("DOMContentLoaded", () => {
        */
       enhanceBtn.addEventListener('click', async () => {
         if (!enhanceBtn.classList.contains('disabled')) {
+          enhanceBtn.classList.add('disabled');
           //hide .uc-copy-prompt and .uc-step_title2 before the response is received
 
-          // step2Title.classList.add('hide');
-          // copyPromptZB.classList.add('hide');
           copyPromptZB.classList.add('disabled');
-          // responseAreaZB.classList.add('hide');
 
-          // const prompt = document.querySelector('textarea[name="origPrompt"]').value.trim();
-          //   const enhancedPrompt = document.querySelector('.pxb-enhanced-prompt .tn-atom');
-          // const enhancedPrompt = document.querySelector('.uc-res .t-text');
 
           // Get the language selected by the user
           ai_lang = localStorage.getItem('ai_lang') || 'input';
@@ -315,6 +310,18 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             if (!response.ok) {
+              responseAreaPre.innerHTML = `
+              if (ai_lang !== 'arabic') {
+                <div style="text-align: left; font-family: 'TildaSans';">
+                  <p>Sorry, an error occurred while processing your request. Please try again later.</p>
+                </div>
+              } else {
+                <div style="text-align: right; font-family: 'Cairo';">
+                  <p>عذرًا، حدث خطأ أثناء معالجة طلبك. يرجى المحاولة مرة أخرى لاحقًا.</p>
+                </div>
+              }
+              `;
+              enhanceBtn.classList.remove('disabled');
               throw new Error('Network response was not ok');
             }
 
