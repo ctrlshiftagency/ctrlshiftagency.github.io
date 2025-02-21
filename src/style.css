@@ -31,3 +31,9 @@
   font-family: 'Cairo';
   color: #333333;
 }
+
+/* Hide */
+.uc-copy-prompt,
+.uc-step_title2 {
+  display: none;
+}

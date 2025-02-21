@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   // List of selectors (IDs or class names)
-  const selectors = [".uc-scale-container", '.uc-step_title', '.uc-res'];
+  const selectors = [".uc-scale-container", '.uc-step_title1', '.uc-step_title2', '.uc-res'];
 
   // Function to update the zoom level of a given element
   const updateZoom = (element) => {
@@ -157,6 +157,10 @@ document.querySelector('.pxb-enhance').addEventListener('click', async () => {
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
+
+    //show .uc-copy-prompt and .uc-step_title2 after the response is received
+    document.querySelector('.uc-copy-prompt').style.display = 'block';
+    document.querySelector('.uc-step_title2').style.display = 'block';
 
     // Clear previous content
     enhancedPrompt.innerHTML = '<pre class="pxb-response"></pre>'; // Initialize <pre> tag
