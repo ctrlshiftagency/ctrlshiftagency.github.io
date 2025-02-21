@@ -341,6 +341,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 //show the copy button
                 // copyPromptZB.classList.remove('hide');
                 copyPromptZB.classList.remove('disabled');
+                enhanceBtn.classList.remove('disabled');
                 return;
               }
 
