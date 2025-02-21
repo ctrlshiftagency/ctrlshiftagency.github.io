@@ -1,0 +1,37 @@
+.t004 .t-col_8 {
+  max-width: 800px;
+}
+
+.t004 .t-col {
+  margin-left: 0;
+}
+
+.uc-scale-container .t120 .t-col {
+  margin-left: 80px;
+}
+.pxb-enhance {
+  cursor: pointer;
+}
+
+.pxb-copy-prompt {
+  cursor: pointer;
+}
+
+.pxb-enhanced-prompt {
+  width: 800px !important;
+}
+
+.pxb-response {
+  text-wrap-mode: wrap;
+  font-family: 'Cairo';
+  background-color: #fffdf3;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 2px #a4a4a4 dashed;
+  font-family: 'Cairo';
+  color: #333333;
+}
+
+body {
+  background-color: red !important;
+}
