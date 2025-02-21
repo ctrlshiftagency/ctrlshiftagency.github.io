@@ -184,7 +184,7 @@ document.querySelector('.pxb-enhance').addEventListener('click', async () => {
 
       // Append the chunk to the <pre> element
       preElement.textContent += chunk;
-      document.querySelector('.uc-copy-prompt').style.display = 'block';
+
       // Read the next chunk
       return reader.read().then(processStream);
     };
