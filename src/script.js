@@ -19,13 +19,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Map Arabic language names to their short codes
       const languageMap = {
-        "العربية": "ar",
-        "الإنجليزية": "en",
-        "الصينية": "zh",
-        "الهندية": "hi",
-        "الإسبانية": "es",
-        "الفرنسية": "fr",
-        "الروسية": "ru"
+        "العربية": "arabic",
+        "الإنجليزية": "english",
+        "الالمانية": "german",
+        "الإسبانية": "spanish",
+        "الفرنسية": "french",
+        "الروسية": "russian",
       };
 
       // Add an event listener for the 'change' event
@@ -35,13 +34,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Get the corresponding short code from the languageMap
         if (selectedLanguage) {
-          const shortCode = languageMap[selectedLanguage];
           // Save the short code to local storage
-          localStorage.setItem('ai_lang', shortCode);
+          localStorage.setItem('ai_lang', languageMap[selectedLanguage]);
 
           // Optional: Log the selected language and short code to the console
           console.log('Selected Language:', selectedLanguage);
-          console.log('Short Code:', shortCode);
 
         } else {
           localStorage.setItem('ai_lang', 'input')
