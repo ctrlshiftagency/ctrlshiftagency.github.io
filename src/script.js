@@ -215,7 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         body: JSON.stringify({
           prompt: prompt,
-          ai_lang: localStorage.getItem('ai_lang')
+          ai_lang: localStorage.getItem('ai_lang') !== 'input' ? localStorage.getItem('ai_lang') : null
         }),
       });
 
