@@ -38,14 +38,17 @@ document.addEventListener("DOMContentLoaded", () => {
           const shortCode = languageMap[selectedLanguage];
           // Save the short code to local storage
           localStorage.setItem('ai_lang', shortCode);
+
+          // Optional: Log the selected language and short code to the console
+          console.log('Selected Language:', selectedLanguage);
+          console.log('Short Code:', shortCode);
+
         } else {
           localStorage.setItem('ai_lang', 'input')
         }
 
 
-        // Optional: Log the selected language and short code to the console
-        console.log('Selected Language:', selectedLanguage);
-        console.log('Short Code:', shortCode);
+
       });
     })
   })
