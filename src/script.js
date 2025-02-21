@@ -1,8 +1,60 @@
-document.addEventListener("DOMContentLoaded", () => {
-  // List of selectors (IDs or class names)
-  const selectors = [".uc-scale-container", '.uc-step_title1', '.uc-step_title2', '.uc-res'];
 
-  // Function to update the zoom level of a given element
+
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  // Set the default language to 'input' when the page loads
+  localStorage.setItem('selected_reply_language', 'input')
+
+  // Get and Set the reply language
+  t_onReady(function () {
+    t_onFuncLoad('t396_init', function () {
+      // Get the select element
+      const selectElement = document.querySelector('select.t-select[name="res_lang"]');
+
+      // Map Arabic language names to their short codes
+      const languageMap = {
+        "العربية": "ar",
+        "الإنجليزية": "en",
+        "الصينية": "zh",
+        "الهندية": "hi",
+        "الإسبانية": "es",
+        "الفرنسية": "fr",
+        "الروسية": "ru"
+      };
+
+      // Add an event listener for the 'change' event
+      selectElement.addEventListener('change', function (event) {
+        // Get the selected option value (Arabic language name)
+        const selectedLanguage = event.target.value;
+
+        // Get the corresponding short code from the languageMap
+        if (selectedLanguage) {
+          const shortCode = languageMap[selectedLanguage];
+          // Save the short code to local storage
+          localStorage.setItem('selected_reply_language', shortCode);
+        } else {
+          localStorage.setItem('selected_reply_language', 'input')
+        }
+
+
+        // Optional: Log the selected language and short code to the console
+        console.log('Selected Language:', selectedLanguage);
+        console.log('Short Code:', shortCode);
+      });
+    })
+  })
+
+
+  /** 
+   * Function to update the zoom level of a given element based on the window width
+   * @param {HTMLElement} element - The element to update
+  */
   const updateZoom = (element) => {
     const windowWidth = window.innerWidth;
 
@@ -11,7 +63,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // Universal function to select elements by ID or class
+  /** Universal function to select elements by ID or class name
+   * @param {string} selector - The ID or class name of the element
+   * @returns {HTMLElement[]} - An array of elements matching the selector
+  */
   const getElements = (selector) => {
     if (selector.startsWith('#')) {
       const element = document.getElementById(selector.slice(1));
@@ -24,7 +79,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  selectors.forEach((selector) => {
+  // List of Zoom Selectors (IDs or class names)
+  const zoomSelectors = [".uc-scale-container", '.uc-step_title1', '.uc-step_title2', '.uc-res'];
+
+  // Initialize zoom for each selector
+  zoomSelectors.forEach((selector) => {
     const elements = getElements(selector);
 
     elements.forEach((element) => {
@@ -35,205 +94,205 @@ document.addEventListener("DOMContentLoaded", () => {
       window.addEventListener("resize", () => updateZoom(element));
     });
   });
-});
-
-// document.querySelector('.pxb-enhance').addEventListener('click', async () => {
-//   const prompt = document.querySelector('textarea[name="origPrompt"]').value;
-//   try {
-//     const response = await fetch('https://api.plz-ai.me/v1/gp', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'text/plain',
-//       },
-//       body: JSON.stringify({
-//         prompt: prompt
-//       }),
-//     });
-
-//     if (!response.ok) {
-//       throw new Error('Network response was not ok');
-//     }
-
-//     const responseText = await response.text();
-
-//     // Assuming you have an element with ID "targetElement"
-// const enhancedPrompt =  document.querySelector('.pxb-enhanced-prompt .tn-atom');
 
 
-// // Replace line breaks with <br> tags and preserve spaces
-// const formattedText = responseText.replace(/\n/g, '<br>').replace(/ /g, '&nbsp;');
+  // document.querySelector('.pxb-enhance').addEventListener('click', async () => {
+  //   const prompt = document.querySelector('textarea[name="origPrompt"]').value;
+  //   try {
+  //     const response = await fetch('https://api.plz-ai.me/v1/gp', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'text/plain',
+  //       },
+  //       body: JSON.stringify({
+  //         prompt: prompt
+  //       }),
+  //     });
 
-// // Update the element's content
-// // enhancedPrompt.innerHTML = formattedText;
-// enhancedPrompt.innerHTML = `<pre class="pxb-response">${await response.text()}</pre>`;
+  //     if (!response.ok) {
+  //       throw new Error('Network response was not ok');
+  //     }
+
+  //     const responseText = await response.text();
+
+  //     // Assuming you have an element with ID "targetElement"
+  // const enhancedPrompt =  document.querySelector('.pxb-enhanced-prompt .tn-atom');
 
 
-//     // document.querySelector('.pxb-enhanced-prompt .tn-atom').textContent = textResponse;
-//   } catch (error) {
-//     console.error('There has been a problem with your fetch operation:', error);
-//   }
-// });
+  // // Replace line breaks with <br> tags and preserve spaces
+  // const formattedText = responseText.replace(/\n/g, '<br>').replace(/ /g, '&nbsp;');
 
-/**
- * Enhance the prompt using the Plz AI API
- * Hint: not using thre real-time stream processing
- */
-// document.querySelector('.pxb-enhance').addEventListener('click', async () => {
-//   const prompt = document.querySelector('textarea[name="origPrompt"]').value;
-//   const enhancedPrompt = document.querySelector('.pxb-enhanced-prompt .tn-atom');
+  // // Update the element's content
+  // // enhancedPrompt.innerHTML = formattedText;
+  // enhancedPrompt.innerHTML = `<pre class="pxb-response">${await response.text()}</pre>`;
 
-//   try {
-//     const response = await fetch('https://api.plz-ai.me/v1/gp', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'text/plain',
-//       },
-//       body: JSON.stringify({
-//         prompt: prompt
-//       }),
-//     });
 
-//     if (!response.ok) {
-//       throw new Error('Network response was not ok');
-//     }
+  //     // document.querySelector('.pxb-enhanced-prompt .tn-atom').textContent = textResponse;
+  //   } catch (error) {
+  //     console.error('There has been a problem with your fetch operation:', error);
+  //   }
+  // });
 
-//     // Clear previous content
-//     enhancedPrompt.innerHTML = '';
-
-//     // Get the readable stream from the response body
-//     const reader = response.body.getReader();
-//     const decoder = new TextDecoder();
-
-//     // Function to process each chunk of the stream
-//     const processStream = async ({ done, value }) => {
-//       if (done) {
-//         console.log('Stream complete');
-//         return;
-//       }
-
-//       // Decode the chunk
-//       const chunk = decoder.decode(value, { stream: true });
-
-//       // Replace line breaks with <br> and spaces with &nbsp;
-//       const formattedChunk = chunk
-//         .replace(/\n/g, '<br>')
-//         .replace(/ /g, '&nbsp;');
-
-//       // Append the formatted chunk to the element
-//       enhancedPrompt.innerHTML += formattedChunk;
-
-//       // Read the next chunk
-//       return reader.read().then(processStream);
-//     };
-
-//     // Start processing the stream
-//     await reader.read().then(processStream);
-//   } catch (error) {
-//     console.error('There has been a problem with your fetch operation:', error);
-//   }
-// });
-
-/**
- * Enhance the prompt using the Plz AI API
- * Hint: Using stream processing to display the response text in real-time
- */
-document.querySelector('.pxb-enhance').addEventListener('click', async () => {
-  //hide .uc-copy-prompt and .uc-step_title2 before the response is received
-  document.querySelector('.uc-copy-prompt').style.display = 'none';
-  document.querySelector('.uc-step_title2').style.display = 'none';
-  document.querySelector('.uc-res').style.display = 'none';
-
-  const prompt = document.querySelector('textarea[name="origPrompt"]').value;
+  /**
+   * Enhance the prompt using the Plz AI API
+   * Hint: not using thre real-time stream processing
+   */
+  // document.querySelector('.pxb-enhance').addEventListener('click', async () => {
+  //   const prompt = document.querySelector('textarea[name="origPrompt"]').value;
   //   const enhancedPrompt = document.querySelector('.pxb-enhanced-prompt .tn-atom');
-  const enhancedPrompt = document.querySelector('.uc-res .t-text');
+
+  //   try {
+  //     const response = await fetch('https://api.plz-ai.me/v1/gp', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'text/plain',
+  //       },
+  //       body: JSON.stringify({
+  //         prompt: prompt
+  //       }),
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error('Network response was not ok');
+  //     }
+
+  //     // Clear previous content
+  //     enhancedPrompt.innerHTML = '';
+
+  //     // Get the readable stream from the response body
+  //     const reader = response.body.getReader();
+  //     const decoder = new TextDecoder();
+
+  //     // Function to process each chunk of the stream
+  //     const processStream = async ({ done, value }) => {
+  //       if (done) {
+  //         console.log('Stream complete');
+  //         return;
+  //       }
+
+  //       // Decode the chunk
+  //       const chunk = decoder.decode(value, { stream: true });
+
+  //       // Replace line breaks with <br> and spaces with &nbsp;
+  //       const formattedChunk = chunk
+  //         .replace(/\n/g, '<br>')
+  //         .replace(/ /g, '&nbsp;');
+
+  //       // Append the formatted chunk to the element
+  //       enhancedPrompt.innerHTML += formattedChunk;
+
+  //       // Read the next chunk
+  //       return reader.read().then(processStream);
+  //     };
+
+  //     // Start processing the stream
+  //     await reader.read().then(processStream);
+  //   } catch (error) {
+  //     console.error('There has been a problem with your fetch operation:', error);
+  //   }
+  // });
+
+  /**
+   * Enhance the prompt using the Plz AI API
+   * Hint: Using stream processing to display the response text in real-time
+   */
+  document.querySelector('.pxb-enhance').addEventListener('click', async () => {
+    //hide .uc-copy-prompt and .uc-step_title2 before the response is received
+    document.querySelector('.uc-copy-prompt').style.display = 'none';
+    document.querySelector('.uc-step_title2').style.display = 'none';
+    document.querySelector('.uc-res').style.display = 'none';
+
+    const prompt = document.querySelector('textarea[name="origPrompt"]').value;
+    //   const enhancedPrompt = document.querySelector('.pxb-enhanced-prompt .tn-atom');
+    const enhancedPrompt = document.querySelector('.uc-res .t-text');
 
 
-  try {
-    const response = await fetch('https://api.plz-ai.me/v1/gp', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'text/plain',
-      },
-      body: JSON.stringify({
-        prompt: prompt
-      }),
-    });
+    try {
+      const response = await fetch('https://api.plz-ai.me/v1/gp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'text/plain',
+        },
+        body: JSON.stringify({
+          prompt: prompt
+        }),
+      });
 
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-
-    //show .uc-copy-prompt and .uc-step_title2 after the response is received
-    document.querySelector('.uc-step_title2').style.display = 'block';
-    document.querySelector('.uc-res').style.display = 'block';
-
-
-    // Clear previous content
-    enhancedPrompt.innerHTML = '<pre class="pxb-response"></pre>'; // Initialize <pre> tag
-    const preElement = enhancedPrompt.querySelector('.pxb-response');
-
-    // Get the readable stream from the response body
-    const reader = response.body.getReader();
-    const decoder = new TextDecoder();
-
-    // Function to process each chunk of the stream
-    const processStream = async ({ done, value }) => {
-      if (done) {
-        console.log('Stream complete');
-        //show the copy button
-        document.querySelector('.uc-copy-prompt').style.display = 'block';
-        return;
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       }
 
-      // Decode the chunk
-      const chunk = decoder.decode(value, { stream: true });
+      //show .uc-copy-prompt and .uc-step_title2 after the response is received
+      document.querySelector('.uc-step_title2').style.display = 'block';
+      document.querySelector('.uc-res').style.display = 'block';
 
-      // Append the chunk to the <pre> element
-      preElement.textContent += chunk;
 
-      // Read the next chunk
-      return reader.read().then(processStream);
-    };
+      // Clear previous content
+      enhancedPrompt.innerHTML = '<pre class="pxb-response"></pre>'; // Initialize <pre> tag
+      const preElement = enhancedPrompt.querySelector('.pxb-response');
 
-    // Start processing the stream
-    await reader.read().then(processStream);
-  } catch (error) {
-    console.error('There has been a problem with your fetch operation:', error);
+      // Get the readable stream from the response body
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+
+      // Function to process each chunk of the stream
+      const processStream = async ({ done, value }) => {
+        if (done) {
+          console.log('Stream complete');
+          //show the copy button
+          document.querySelector('.uc-copy-prompt').style.display = 'block';
+          return;
+        }
+
+        // Decode the chunk
+        const chunk = decoder.decode(value, { stream: true });
+
+        // Append the chunk to the <pre> element
+        preElement.textContent += chunk;
+
+        // Read the next chunk
+        return reader.read().then(processStream);
+      };
+
+      // Start processing the stream
+      await reader.read().then(processStream);
+    } catch (error) {
+      console.error('There has been a problem with your fetch operation:', error);
+    }
+  });
+
+  /**
+   * Copy the enhanced prompt to the clipboard
+   */
+  function copyPrompt(e) {
+    let txt = e.querySelector('.tn-atom')
+    let startText = txt.innerText
+    let textToCopy = document.querySelector('.uc-res .t-text .pxb-response').textContent
+    navigator.clipboard.writeText(textToCopy)
+      .then(() => {
+        txt.innerText = 'Copied - All Done'
+        console.log('Prompt copied to clipboard');
+        setTimeout(() => {
+          txt.innerText = startText;
+        }, 3000);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   }
+
+  /**
+   * Copy the enhanced prompt to the clipboard
+   */
+  document.querySelector('.pxb-copy-prompt').addEventListener('click', function () {
+    copyPrompt(this);
+  })
+
+  //Hint: using the following code to add the onclick event to the element after 5 seconds
+  // document.querySelectorAll(".pxb-copy-prompt").forEach(function (element) {
+  //   setTimeout(() => {
+  //     element.setAttribute("onclick", "copyPrompt(this)");
+  //   }, 5000);
+  // })
 });
-
-/**
- * Copy the enhanced prompt to the clipboard
- */
-function copyPrompt(e) {
-  let txt = e.querySelector('.tn-atom')
-  let startText = txt.innerText
-  let textToCopy = document.querySelector('.uc-res .t-text .pxb-response').textContent
-  navigator.clipboard.writeText(textToCopy)
-    .then(() => {
-      txt.innerText = 'Copied - All Done'
-      console.log('Prompt copied to clipboard');
-      setTimeout(() => {
-        txt.innerText = startText;
-      }, 3000);
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-}
-
-/**
- * Copy the enhanced prompt to the clipboard
- */
-document.querySelector('.pxb-copy-prompt').addEventListener('click', function () {
-  copyPrompt(this);
-})
-
-//Hint: using the following code to add the onclick event to the element after 5 seconds
-// document.querySelectorAll(".pxb-copy-prompt").forEach(function (element) {
-//   setTimeout(() => {
-//     element.setAttribute("onclick", "copyPrompt(this)");
-//   }, 5000);
-// })
-
 
