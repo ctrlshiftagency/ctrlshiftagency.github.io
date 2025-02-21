@@ -316,7 +316,7 @@ document.addEventListener("DOMContentLoaded", () => {
             //show .uc-copy-prompt and .uc-step_title2 after the response is received
             step2Title.classList.remove('hide');
             responseAreaZB.classList.remove('hide');
-            // copyPromptZB.style.display = 'block';
+            responseAreaPre.style.display = 'block';
 
 
             // Clear previous content
