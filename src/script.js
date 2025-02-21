@@ -9,7 +9,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   // Set the default language to 'input' when the page loads
-  localStorage.setItem('selected_reply_language', 'input')
+  localStorage.setItem('ai_lang', 'input')
 
   // Get and Set the reply language
   t_onReady(function () {
@@ -37,9 +37,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (selectedLanguage) {
           const shortCode = languageMap[selectedLanguage];
           // Save the short code to local storage
-          localStorage.setItem('selected_reply_language', shortCode);
+          localStorage.setItem('ai_lang', shortCode);
         } else {
-          localStorage.setItem('selected_reply_language', 'input')
+          localStorage.setItem('ai_lang', 'input')
         }
 
 
