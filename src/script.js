@@ -206,7 +206,8 @@ document.addEventListener("DOMContentLoaded", () => {
     //   const enhancedPrompt = document.querySelector('.pxb-enhanced-prompt .tn-atom');
     const enhancedPrompt = document.querySelector('.uc-res .t-text');
 
-
+    // Get the language selected by the user
+    const ai_lang = localStorage.getItem('ai_lang') || 'input';
     try {
       const response = await fetch('https://api.plz-ai.me/v1/gp', {
         method: 'POST',
@@ -215,7 +216,7 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         body: JSON.stringify({
           prompt: prompt,
-          ai_lang: localStorage.getItem('ai_lang') !== 'input' ? localStorage.getItem('ai_lang') : null
+          ai_lang: ai_lang
         }),
       });
 
