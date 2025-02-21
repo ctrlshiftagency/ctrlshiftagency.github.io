@@ -359,9 +359,11 @@ document.addEventListener("DOMContentLoaded", () => {
             await reader.read().then(processStream);
           } catch (error) {
             if (ai_lang !== 'arabic' && ai_lang !== 'input') {
-              responseAreaPre.innerHTML = 'Sorry, an error occurred while processing your request. Please try again later.'
+              responseAreaPre.innerHTML = `Sorry, ERROR.
+              Don’t worry, just try again later!`
             } else {
-              responseAreaPre.innerHTML = 'عذرًا، حدث خطأ أثناء معالجة طلبك. يرجى المحاولة مرة أخرى لاحقًا.'
+              responseAreaPre.innerHTML = `للأسف فيه مشكلة بسيطة.
+               ما تزعلش وحاول تاني بعد شوية.`
             }
             enhanceBtn.classList.remove('disabled');
             console.error('There has been a problem with your fetch operation:', error);
