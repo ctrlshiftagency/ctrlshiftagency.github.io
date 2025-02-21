@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Add an event listener for the 'change' event
       selectElement.addEventListener('change', function (event) {
         document.querySelector('.uc-copy-prompt').style.display = 'none';
-        document.querySelector('.uc-step_title2').style.display = 'none';
+        document.querySelector('.uc-step_title2').style.innerText = '';
         document.querySelector('.uc-res').style.display = 'none';
 
         // Get the selected option value (Arabic language name)
@@ -57,11 +57,13 @@ document.addEventListener("DOMContentLoaded", () => {
           document.querySelector('.uc-res .t004 .t-container').style.textAlign = 'left';
           document.querySelector('.uc-res .t004 .t-container .t-text').style.direction = 'ltr'
           document.querySelector('.uc-res .t004 .t-container .t-text').style.fontFamily = 'TildaSans';
+          document.querySelector('.uc-res .t004 .t-container .pxb-response').style.fontFamily = 'TildaSans';
         } else {
           // Set text alignment to right
           document.querySelector('.uc-res .t004 .t-container').style.textAlign = '';
           document.querySelector('.uc-res .t004 .t-container .t-text').style.direction = ''
           document.querySelector('.uc-res .t004 .t-container .t-text').style.fontFamily = 'Cairo';
+          document.querySelector('.uc-res .t004 .t-container .pxb-response').style.fontFamily = 'Cairo';
         }
       });
     })
