@@ -310,17 +310,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             if (!response.ok) {
-              responseAreaPre.innerHTML = `
-              if (ai_lang !== 'arabic') {
-                <div style="text-align: left; font-family: 'TildaSans';">
-                  <p>Sorry, an error occurred while processing your request. Please try again later.</p>
-                </div>
-              } else {
-                <div style="text-align: right; font-family: 'Cairo';">
-                  <p>عذرًا، حدث خطأ أثناء معالجة طلبك. يرجى المحاولة مرة أخرى لاحقًا.</p>
-                </div>
-              }
-              `;
               enhanceBtn.classList.remove('disabled');
               throw new Error('Network response was not ok');
             }
@@ -369,6 +358,17 @@ document.addEventListener("DOMContentLoaded", () => {
             // Start processing the stream
             await reader.read().then(processStream);
           } catch (error) {
+            responseAreaPre.innerHTML = `
+              if (ai_lang !== 'arabic') {
+                <div style="text-align: left; font-family: 'TildaSans';">
+                  <p>Sorry, an error occurred while processing your request. Please try again later.</p>
+                </div>
+              } else {
+                <div style="text-align: right; font-family: 'Cairo';">
+                  <p>عذرًا، حدث خطأ أثناء معالجة طلبك. يرجى المحاولة مرة أخرى لاحقًا.</p>
+                </div>
+              }
+              `;
             console.error('There has been a problem with your fetch operation:', error);
           }
         }
