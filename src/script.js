@@ -39,7 +39,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
           // Optional: Log the selected language and short code to the console
           console.log('Selected Language:', selectedLanguage);
-
+          if (selectedLanguage != 'العربية' || selectedLanguage != 'input') {
+            document.querySelector('.uc-res .t004 .t-container').style.textAlign = 'left!important';
+          } else {
+            document.querySelector('.uc-res .t004 .t-container').style.textAlign = 'right!important';
+          }
         } else {
           localStorage.setItem('ai_lang', 'input')
         }
