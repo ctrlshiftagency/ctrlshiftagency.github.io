@@ -23,16 +23,19 @@
   font-family: 'Cairo';
   background-color: #fffdf3;
   padding: 1.5rem;
-  border-radius: 12px;
+  border-radius: 0;
   border: 2px #a4a4a4 dashed;
   font-family: 'Cairo';
   color: #333333;
 }
 
-.t-form .t-text {
-  padding-bottom: 10px;
-  line-height: 1.5;
+.pxb-form-lang .t-input-title {
+  line-height: 1.4;
+  margin-bottom: 5px;
+  color: #8c7a11 !important;
+  font-size: 14px !important;
 }
+
 /* Hide */
 .uc-copy-prompt,
 .uc-step_title2,
