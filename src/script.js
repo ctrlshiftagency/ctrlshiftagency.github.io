@@ -380,7 +380,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let textToCopy = responseAreaPre.textContent
         navigator.clipboard.writeText(textToCopy)
           .then(() => {
-            txt.innerText = 'Copied - All Done'
+            txt.innerText = 'تمام, أخدنا الكوبي'
             console.log('Prompt copied to clipboard');
             setTimeout(() => {
               txt.innerText = startText;
