@@ -62,11 +62,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const step2Title = document.querySelector('.uc-step_title2');
   // Get the response area element
   const responseAreaZB = document.querySelector('.uc-res');
-  const responseAreaPreContainer = responseAreaZB.document.querySelector('.t004 .t-container');
-  const responseAreaPreTextwrapper = responseAreaPreContainer.document.querySelector('.t-text')
+  const responseAreaPreContainer = responseAreaZB.querySelector('.t004 .t-container');
+  const responseAreaPreTextwrapper = responseAreaPreContainer.querySelector('.t-text')
   // Initialize <pre> tag
   responseAreaPreTextwrapper.innerHTML = '<pre class="pxb-response" style="display: none;"></pre>';
-  const responseAreaPre = responseAreaZB.document.querySelector('.pxb-response');
+  const responseAreaPre = responseAreaZB.querySelector('.pxb-response');
 
   const copyPromptZB = document.querySelector('.uc-copy-prompt');
   const copyPromptBtn = copyPromptZB.querySelector('.pxb-copy-prompt');
