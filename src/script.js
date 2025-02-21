@@ -290,6 +290,7 @@ document.addEventListener("DOMContentLoaded", () => {
       enhanceBtn.addEventListener('click', async () => {
         if (!enhanceBtn.classList.contains('disabled')) {
           enhanceBtn.classList.add('disabled');
+          enhanceBtn.querySelector('.tn-atom').innerHTML = 'Processing... <div class="loading-spinner"></div>';
           //hide .uc-copy-prompt and .uc-step_title2 before the response is received
 
           copyPromptZB.classList.add('disabled');
@@ -342,6 +343,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 // copyPromptZB.classList.remove('hide');
                 copyPromptZB.classList.remove('disabled');
                 enhanceBtn.classList.remove('disabled');
+                enhanceBtn.querySelector('.tn-atom').innerHTML = 'ظبط الكلام';
                 return;
               }
 
