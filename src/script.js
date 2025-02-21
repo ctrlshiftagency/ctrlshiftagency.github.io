@@ -290,7 +290,7 @@ document.addEventListener("DOMContentLoaded", () => {
       enhanceBtn.addEventListener('click', async () => {
         if (!enhanceBtn.classList.contains('disabled')) {
           enhanceBtn.classList.add('disabled');
-          enhanceBtn.querySelector('.tn-atom').innerHTML = 'Processing... <div class="loading-spinner"></div>';
+          enhanceBtn.querySelector('.tn-atom').innerHTML = 'ثواني... <div class="loading-spinner"></div>';
           //hide .uc-copy-prompt and .uc-step_title2 before the response is received
 
           copyPromptZB.classList.add('disabled');
