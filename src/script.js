@@ -72,6 +72,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const copyPromptZB = document.querySelector('.uc-copy-prompt');
       const copyPromptBtn = copyPromptZB.querySelector('.pxb-copy-prompt');
 
+      // Disable the div by adding the 'disabled' class
+      enhanceBtn.classList.add('disabled');
+
       // Set the default language to 'input' when the page loads
       localStorage.setItem('ai_lang', 'input')
       let ai_lang = localStorage.getItem('ai_lang') || 'input';
@@ -309,6 +312,7 @@ document.addEventListener("DOMContentLoaded", () => {
             //show .uc-copy-prompt and .uc-step_title2 after the response is received
             step2Title.style.display = 'block';
             responseAreaZB.style.display = 'block';
+            responseAreaPre.style.display = 'block';
             // copyPromptZB.style.display = 'block';
 
 
