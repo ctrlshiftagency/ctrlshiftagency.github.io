@@ -405,6 +405,23 @@ document.addEventListener("DOMContentLoaded", () => {
       //     element.setAttribute("onclick", "copyPrompt(this)");
       //   }, 5000);
       // })
+
+
+      // detect the country and hide the element
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'https://geo.tildacdn.com/geo/country/', true);
+      xhr.onload = function () {
+        if (xhr.status >= 200 && xhr.status < 400) {
+          var data = xhr.responseText;
+          if (data !== 'RU') {
+            var toHide = document.querySelectorAll('.uc-blocked');
+            Array.prototype.forEach.call(toHide, function (el) {
+              el.style.display = 'none';
+            });
+          }
+        }
+      };
+      xhr.send();
     });
   })
 })
