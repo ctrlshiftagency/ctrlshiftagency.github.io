@@ -324,7 +324,11 @@ document.addEventListener("DOMContentLoaded", () => {
           body.prompt = inputValue; // Include prompt only if it is not empty and don't exceed the max length
 
           enhanceBtn.classList.add('disabled');
-          enhanceBtn.querySelector('.tn-atom').innerHTML = 'ثواني... <div class="loading-spinner"></div>';
+          enhanceBtn.querySelector('.tn-atom').classList.add('progress')
+          enhanceBtn.querySelector('.tn-atom').innerHTML = 'ثواني ...';
+          // enhanceBtn.querySelector('.tn-atom').innerHTML = 'ثواني... <div class="loading-spinner"></div>';
+
+
           //hide .uc-copy-prompt and .uc-step_title2 before the response is received
 
           copyPromptZB.classList.add('disabled');
@@ -384,6 +388,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 copyPromptZB.classList.remove('disabled');
                 enhanceBtn.classList.remove('disabled');
                 enhanceBtn.querySelector('.tn-atom').innerHTML = 'ظبط الكلام';
+                enhanceBtn.querySelector('.tn-atom').classList.remove('progress')
                 history.replaceState(null, '', window.location.pathname + window.location.search);
                 return;
               }
