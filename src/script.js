@@ -294,12 +294,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Update the character count
         charCount.textContent = `${inputValue.length}/${maxLength}`;
+        charCount.style.fontFamily = 'TidaSans';
 
         // Optional: Add visual feedback when the limit is reached
         if (inputValue.length >= maxLength) {
-          charCount.querySelector('.tn-atom').style.color = 'red';
+          charCount.style.color = 'red';
         } else {
-          charCount.querySelector('.tn-atom').style.color = 'black';
+          charCount.style.color = 'black';
         }
       });
       /**
