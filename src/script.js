@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const body = {}
       const prompt = document.querySelector('textarea[name="origPrompt"]')
       const charCount = document.querySelector('.pxb-char-count');
-      charCount.classList.add('ec');
+      charCount.classList.add('gc');
 
       // const errorMessage = document.getElementById('errorMessage');
 
@@ -295,16 +295,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Update the character count
-        charCount.textContent = `${inputValue.length}/${maxLength}`;
-        charCount.style.fontFamily = 'TidaSans';
+        charCount.querySelector('.tn-atom').innerHTML = `${inputValue.length}/${maxLength}`;
+        // charCount.querySelector('.tn-atom').style.fontFamily = 'TidaSans';
 
         // Optional: Add visual feedback when the limit is reached
         if (inputValue.length >= maxLength) {
-          charCount.classList.add('ec');
-          charCount.classList.remove('gc');
+          charCount.querySelector('.tn-atom').classList.add('ec');
+          charCount.querySelector('.tn-atom').classList.remove('gc');
         } else {
-          charCount.classList.add('gc');
-          charCount.classList.remove('ec');
+          charCount.querySelector('.tn-atom').classList.add('gc');
+          charCount.querySelector('.tn-atom').classList.remove('ec');
         }
       });
       /**
