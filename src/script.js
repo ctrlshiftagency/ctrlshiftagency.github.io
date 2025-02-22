@@ -377,10 +377,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Function to process each chunk of the stream
             const processStream = async ({ done, value }) => {
-              const targetElement = document.getElementById('step2');
-              if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth' }); // Smooth scrolling
-              }
+              // const targetElement = document.getElementById('step2');
+              // if (targetElement) {
+              //   targetElement.scrollIntoView({ behavior: 'smooth' }); // Smooth scrolling
+              // }
               if (done) {
                 console.log('Stream complete');
                 //show the copy button
