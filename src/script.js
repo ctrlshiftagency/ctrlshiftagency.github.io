@@ -266,7 +266,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-      const maxLength = 350;
+      const maxLength = 500;
 
       //initialize body.pompt if not empty
       // Include prompt only if it is not empty
@@ -295,7 +295,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Update the character count
-        charCount.querySelector('.tn-atom').innerHTML = `${inputValue.length}/${maxLength}`;
+        charCount.querySelector('.tn-atom').innerHTML = `${inputValue.length} / ${maxLength}`;
         // charCount.querySelector('.tn-atom').style.fontFamily = 'TidaSans';
 
         // Optional: Add visual feedback when the limit is reached
