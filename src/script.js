@@ -366,6 +366,7 @@ document.addEventListener("DOMContentLoaded", () => {
               responseAreaPre.innerHTML = `للأسف فيه مشكلة بسيطة.\nما تزعلش وحاول تاني بعد شوية.`
             }
             enhanceBtn.classList.remove('disabled');
+            enhanceBtn.querySelector('.tn-atom').innerHTML = 'ظبط الكلام';
             console.error('There has been a problem with your fetch operation:', error);
           }
         }
