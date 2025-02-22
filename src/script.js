@@ -301,8 +301,10 @@ document.addEventListener("DOMContentLoaded", () => {
         // Optional: Add visual feedback when the limit is reached
         if (inputValue.length >= maxLength) {
           charCount.classList.add('ec');
+          charCount.classList.remove('gc');
         } else {
           charCount.classList.add('gc');
+          charCount.classList.remove('ec');
         }
       });
       /**
