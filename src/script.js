@@ -314,6 +314,8 @@ document.addEventListener("DOMContentLoaded", () => {
               throw new Error('Network response was not ok');
             }
 
+            window.location.hash = '#step2';
+
             //show .uc-copy-prompt and .uc-step_title2 after the response is received
             // step2Title.classList.remove('hide');
             // responseAreaZB.classList.remove('hide');
@@ -337,6 +339,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Function to process each chunk of the stream
             const processStream = async ({ done, value }) => {
+              const targetElement = document.getElementById('step2');
+              if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' }); // Smooth scrolling
+              }
               if (done) {
                 console.log('Stream complete');
                 //show the copy button
@@ -344,6 +350,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 copyPromptZB.classList.remove('disabled');
                 enhanceBtn.classList.remove('disabled');
                 enhanceBtn.querySelector('.tn-atom').innerHTML = 'ظبط الكلام';
+                history.replaceState(null, '', window.location.pathname + window.location.search);
                 return;
               }
 
@@ -360,6 +367,11 @@ document.addEventListener("DOMContentLoaded", () => {
             // Start processing the stream
             await reader.read().then(processStream);
           } catch (error) {
+            window.location.hash = '#step2';
+            setTimeout(() => {
+              history.replaceState(null, '', window.location.pathname + window.location.search);
+            }, 100); // Small delay to ensure smooth scrolling finishes
+
             if (ai_lang !== 'arabic' && ai_lang !== 'input') {
               responseAreaPre.innerHTML = `Sorry, ERROR.\nDon’t worry, just try again later!`
             } else {
