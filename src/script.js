@@ -266,7 +266,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-      const maxLength = 500;
+      const maxLength = 350;
 
       //initialize body.pompt if not empty
       // Include prompt only if it is not empty
