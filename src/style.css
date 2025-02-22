@@ -6,6 +6,19 @@
   margin-left: 0;
 }
 
+.pxb-char-count.gc {
+  background-color: #fcc94f;
+  padding: 4px;
+  font-family: 'TildaSans';
+}
+
+.pxb-char-count.ec {
+  background-color: #fc4f4f;
+  color: #ffff;
+  padding: 4px;
+  font-family: 'TildaSans';
+}
+
 .pxb-enhance {
   cursor: pointer;
 }

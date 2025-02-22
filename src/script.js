@@ -60,6 +60,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const body = {}
       const prompt = document.querySelector('textarea[name="origPrompt"]')
       const charCount = document.querySelector('.pxb-char-count');
+      charCount.classList.add('ec');
+
       // const errorMessage = document.getElementById('errorMessage');
 
       const enhanceBtn = document.querySelector('.pxb-enhance');
@@ -288,7 +290,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Truncate the input if it exceeds the maximum length
         if (inputValue.length > maxLength) {
-          inputValue = inputValue.substring(0, maxLength); // Trim to max length
+          inputValue = inputValue.substring(0, maxLength).trim(); // Trim to max length
           prompt.value = inputValue; // Update the textarea value
         }
 
@@ -298,9 +300,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Optional: Add visual feedback when the limit is reached
         if (inputValue.length >= maxLength) {
-          charCount.style.color = 'red';
+          charCount.classList.add('ec');
         } else {
-          charCount.style.color = 'black';
+          charCount.classList.add('gc');
         }
       });
       /**
