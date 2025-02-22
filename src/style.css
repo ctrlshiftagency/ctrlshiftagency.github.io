@@ -6,13 +6,13 @@
   margin-left: 0;
 }
 
-.pxb-char-count.gc {
+.pxb-char-count .tn-atom.gc {
   background-color: #fcc94f;
   color: #333333;
   padding: 4px;
 }
 
-.pxb-char-count.ec {
+.pxb-char-count .tn-atom.ec {
   background-color: #fc4f4f;
   color: #ffffff;
   padding: 4px;
