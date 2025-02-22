@@ -296,7 +296,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Update the character count
         charCount.querySelector('.tn-atom').innerHTML = `${inputValue.length} / ${maxLength}`;
-        // charCount.querySelector('.tn-atom').style.fontFamily = 'TidaSans';
 
         // Optional: Add visual feedback when the limit is reached
         if (inputValue.length >= maxLength) {
