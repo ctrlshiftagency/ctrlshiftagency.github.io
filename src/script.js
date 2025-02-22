@@ -59,6 +59,9 @@ document.addEventListener("DOMContentLoaded", () => {
       // Construct the body object
       const body = {}
       const prompt = document.querySelector('textarea[name="origPrompt"]')
+      const charCount = document.querySelector('.pxb-char-count');
+      // const errorMessage = document.getElementById('errorMessage');
+
       const enhanceBtn = document.querySelector('.pxb-enhance');
       const step2Title = document.querySelector('.uc-step_title2');
       // Get the response area element
@@ -261,26 +264,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+      const maxLength = 500;
 
+      //initialize body.pompt if not empty
       // Include prompt only if it is not empty
-      if (prompt.value.trim() !== '') {
-        enhanceBtn.querySelector('.tn-atom').style.display = 'none';
+      if (prompt.value.trim() !== '' && prompt.value.trim().length <= maxLength) {
+        // enhanceBtn.querySelector('.tn-atom').style.display = 'none';
         body.prompt = prompt.value.trim();
       }
 
       // Add an event listener for the 'input' event
       prompt.addEventListener('input', function () {
-        // Check if the input has a value
-        if (prompt.value.trim() !== '') {
-          // Include the prompt in the body object
-          body.prompt = prompt.value.trim();
-          // Show the button
+        let inputValue = prompt.value.trim(); // Trim whitespace
+
+        // Check if the input has a value and enable or disable the BTN
+        if (inputValue !== '') {
           // Enable the div by removing the 'disabled' class
           enhanceBtn.classList.remove('disabled');
         } else {
-
-          // Disable the div by adding the 'disabled' class
+          // Disable the BTN by adding the 'disabled' class
           enhanceBtn.classList.add('disabled');
+        }
+
+        // Truncate the input if it exceeds the maximum length
+        if (inputValue.length > maxLength) {
+          inputValue = inputValue.substring(0, maxLength); // Trim to max length
+          prompt.value = inputValue; // Update the textarea value
+        }
+
+        // Update the character count
+        charCount.textContent = `${inputValue.length}/${maxLength}`;
+
+        // Optional: Add visual feedback when the limit is reached
+        if (inputValue.length >= maxLength) {
+          charCount.querySelector('.tn-atom').style.color = 'red';
+        } else {
+          charCount.querySelector('.tn-atom').style.color = 'black';
         }
       });
       /**
@@ -289,6 +308,17 @@ document.addEventListener("DOMContentLoaded", () => {
        */
       enhanceBtn.addEventListener('click', async () => {
         if (!enhanceBtn.classList.contains('disabled')) {
+          let inputValue = prompt.value.trim(); // Trim whitespace
+
+          // Validate the length
+          if (inputValue.length > maxLength) {
+            // errorMessage.style.display = 'block'; // Show error message
+            return; // Stop further execution
+          }
+
+          // errorMessage.style.display = 'none'; // Hide error message
+          body.prompt = inputValue; // Include prompt only if it is not empty and don't exceed the max length
+
           enhanceBtn.classList.add('disabled');
           enhanceBtn.querySelector('.tn-atom').innerHTML = 'ثواني... <div class="loading-spinner"></div>';
           //hide .uc-copy-prompt and .uc-step_title2 before the response is received
