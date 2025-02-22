@@ -7,15 +7,15 @@
 }
 
 .pxb-char-count .tn-atom.gc {
-  background-color: #fcc94f;
-  color: #333333;
-  padding: 4px;
+  background-color: #fde4a7;
+  padding: 2px 7px;
+  border-radius: 20px;
 }
 
 .pxb-char-count .tn-atom.ec {
   background-color: #fc4f4f;
-  color: #ffffff;
-  padding: 4px;
+  padding: 2px 7px;
+  border-radius: 20px;
 }
 
 .pxb-enhance {
