@@ -8,14 +8,18 @@
 
 .pxb-char-count .tn-atom.gc {
   background-color: #fde4a7;
+  background-color: rgb(168, 233, 192);
   padding: 2px 7px;
   border-radius: 20px;
+  font-weight: 500 !important;
 }
 
 .pxb-char-count .tn-atom.ec {
   background-color: #fc4f4f;
+  background-color: rgb(254, 204, 200);
   padding: 2px 7px;
   border-radius: 20px;
+  font-weight: 500 !important;
 }
 
 .pxb-enhance {
