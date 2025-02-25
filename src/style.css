@@ -22,6 +22,10 @@
   font-weight: 500 !important;
 }
 
+.pxb-form-lang .t-select__wrapper:after {
+  border-top-color: #e7b131 !important;
+}
+
 .pxb-enhance {
   cursor: pointer;
 }
