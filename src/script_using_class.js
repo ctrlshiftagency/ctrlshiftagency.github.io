@@ -1,3 +1,5 @@
+// import { Observer } from './observer.js';
+
 document.addEventListener("DOMContentLoaded", () => {
   /** 
      * Function to update the zoom level of a given element based on the window width
@@ -471,7 +473,6 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         // Apply styles and add the listener
-        languageSelector.style.backgroundColor = 'black';
         languageSelector.removeEventListener('change', changeEventListener); // Prevent duplicates
         languageSelector.addEventListener('change', changeEventListener);
 
@@ -485,12 +486,10 @@ document.addEventListener("DOMContentLoaded", () => {
        */
       function cleanupLanguageChangeHandler(element) {
         if (!element) return;
-
         const languageSelector = element.querySelector('select.t-select[name="res_lang"]');
 
         if (languageSelector && changeEventListener) {
           languageSelector.removeEventListener('change', changeEventListener);
-          languageSelector.style.backgroundColor = 'red';
           hasAddedListener = false;
         }
       }
