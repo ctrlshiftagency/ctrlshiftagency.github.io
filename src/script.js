@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 document.addEventListener("DOMContentLoaded", () => {
   /** 
  * Function to update the zoom level of a given element based on the window width
@@ -56,10 +48,9 @@ document.addEventListener("DOMContentLoaded", () => {
    */
   t_onReady(function () {
     t_onFuncLoad('t396_init', function () {
-
       // Construct the body object
       const body = {}
-      const prompt = document.querySelector('textarea[name="origPrompt"]') //need to be observed
+      const prompt = document.querySelector('textarea[name="origPrompt"]')
       const charCount = document.querySelector('.pxb-char-count');
       charCount.querySelector('.tn-atom').classList.add('gc');
 
@@ -93,31 +84,10 @@ document.addEventListener("DOMContentLoaded", () => {
       //always include ai_lang in the body object
       body.ai_lang = localStorage.getItem('ai_lang') || 'input';
 
-
-
-
-
-      // var elemToObserve = document.querySelector('.pxb-form-lang');
-      // var prevClassState = elemToObserve.classList.contains('zero-form-rendered');
-      // var observer = new MutationObserver(function (mutations) {
-      //   mutations.forEach(function (mutation) {
-      //     if (mutation.attributeName == "class") {
-      //       var currentClassState = mutation.target.classList.contains('zero-form-rendered');
-      //       if (prevClassState !== currentClassState) {
-      //         prevClassState = currentClassState;
-      //         if (currentClassState)
-      //           console.log("class added!");
-      //         else
-      //           console.log("class removed!");
-      //       }
-      //     }
-      //   });
-      // });
-      // observer.observe(elemToObserve, { attributes: true });
-
       // Get and Set the reply language
+
       // Get the select element
-      // const languageSelectElement = document.querySelector('.pxb-form-lang select.t-select[name="res_lang"]');
+      const languageSelectElement = document.querySelector('select.t-select[name="res_lang"]');
 
       // Map Arabic language names to their short codes
       const languageMap = {
@@ -130,95 +100,53 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
 
-      // Create an instance of the Observer class with debounce to prevent multiple rapid callbacks
-      let languageSelectElement = new Observer('.pxb-form-lang', {
-        trackReferences: true,
-        debounce: 100  // 100ms debounce to prevent duplicate callbacks
-      });
+      // Add an event listener for the 'change' event
+      languageSelectElement.addEventListener('change', function (event) {
 
-      console.log(languageSelectElement);
 
-      // Store the change event listener function
-      let changeEventListener;
-      let hasAddedListener = false;  // Flag to track if we've already added the listener
+        responseAreaPre.innerHTML = '';
+        copyPromptZB.classList.add('disabled');
 
-      // Listen for the class 'zero-form-rendered'
-      languageSelectElement.listenToClass('zero-form-rendered', {
-        // This is called when the element with the class is found
-        onFound: (elements) => {
-          // Get the first matching element (instead of using 'this')
-          const element = elements[0];
-          console.log('Class added:', 'zero-form-rendered');
-          console.log('Class changed:', element.className);
+        // copyPromptBtn.style.display = 'none';
+        // step2Title.style.display = 'none';
+        // Hide the response area if exists
+        // if (responseAreaPre) responseAreaPre.style.display = 'none';
 
-          const languageSelector = element.querySelector('select.t-select[name="res_lang"]');
-          if (languageSelector && !hasAddedListener) {
-            // Define the change event listener function
-            changeEventListener = function (event) {
-              responseAreaPre.innerHTML = '';
-              copyPromptZB.classList.add('disabled');
+        // Get the selected option value (Arabic language name)
+        const selectedLanguage = event.target.value;
 
-              // Get the selected option value
-              const selectedLanguage = event.target.value;
-              // Get the corresponding short code from the languageMap
-              if (selectedLanguage) {
-                // Save the short code to local storage
-                localStorage.setItem('ai_lang', languageMap[selectedLanguage]);
-                // Optional: Log the selected language and short code to the console
-                console.log('Selected Language:', selectedLanguage);
-              } else {
-                localStorage.setItem('ai_lang', 'input');
-              }
-              // Get the language selected by the user from local storage
-              ai_lang = localStorage.getItem('ai_lang') || 'input';
-              //include ai_lang in the body object
-              body.ai_lang = ai_lang;
-              // Check if the selected language is NOT Arabic or input
-              if (ai_lang !== 'arabic' && ai_lang !== 'input') {
-                // Set text alignment to left
-                responseAreaPreContainer.style.textAlign = 'left';
-                responseAreaPreTextwrapper.style.direction = 'ltr';
-                responseAreaPreTextwrapper.style.fontFamily = 'TildaSans';
-              } else {
-                // Set text alignment to right
-                responseAreaPreContainer.style.textAlign = '';
-                responseAreaPreTextwrapper.style.direction = '';
-                responseAreaPreTextwrapper.style.fontFamily = 'Cairo';
-              }
-            };
+        // Get the corresponding short code from the languageMap
+        if (selectedLanguage) {
+          // Save the short code to local storage
+          localStorage.setItem('ai_lang', languageMap[selectedLanguage]);
 
-            // Element has the class, so set background to black
-            languageSelector.style.backgroundColor = 'black';
-            // Only add the event listener once
-            languageSelector.removeEventListener('change', changeEventListener); // Ensure no duplicates
-            languageSelector.addEventListener('change', changeEventListener);
+          // Optional: Log the selected language and short code to the console
+          console.log('Selected Language:', selectedLanguage);
+        } else {
+          localStorage.setItem('ai_lang', 'input')
+        }
 
-            // Set flag to prevent adding duplicate listeners
-            hasAddedListener = true;
-          }
-        },
+        // Get the language selected by the user from local storage
+        ai_lang = localStorage.getItem('ai_lang') || 'input';
 
-        // This is called when the element with the class is removed
-        // Now we receive the previous elements as a parameter
-        onRemoved: (previousElements) => {
-          console.log('Class removed:', 'zero-form-rendered');
+        //include ai_lang in the body object
+        body.ai_lang = ai_lang;
 
-          // We can now access the previous element directly
-          if (previousElements.length > 0) {
-            const element = previousElements[0];
-            const languageSelector = element.querySelector('select.t-select[name="res_lang"]');
-
-            if (languageSelector && changeEventListener) {
-              languageSelector.style.backgroundColor = 'red';
-              // Remove the change event listener
-              languageSelector.removeEventListener('change', changeEventListener);
-
-              // Reset the flag
-              hasAddedListener = false;
-            }
-          }
+        // Check if the selected language is NOT Arabic or input
+        if (ai_lang !== 'arabic' && ai_lang !== 'input') {
+          // Set text alignment to left
+          responseAreaPreContainer.style.textAlign = 'left';
+          responseAreaPreTextwrapper.style.direction = 'ltr'
+          responseAreaPreTextwrapper.style.fontFamily = 'TildaSans';
+        } else {
+          // Set text alignment to right
+          responseAreaPreContainer.style.textAlign = '';
+          responseAreaPreTextwrapper.style.direction = ''
+          responseAreaPreTextwrapper.style.fontFamily = 'Cairo';
         }
       });
+
+
 
 
 
