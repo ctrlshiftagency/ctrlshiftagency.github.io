@@ -1,5 +1,6 @@
 ## Add
 
+- Redirect to lang (using navigator.language )
 - top menu header
 - footer
 - disable console and info message

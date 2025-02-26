@@ -1,3 +1,7 @@
+.day-night .tn-atom {
+  cursor: pointer;
+}
+
 .uc-res .t004 .t-col_8 {
   max-width: 800px;
 }
@@ -20,6 +24,25 @@
   padding: 2px 7px;
   border-radius: 20px;
   font-weight: 500 !important;
+}
+
+.pxb-align-r,
+.pxb-align-l {
+  cursor: pointer;
+}
+
+.pxb-align-r .tn-atom.active svg,
+.pxb-align-l .tn-atom.active svg {
+  background-color: #8c743a;
+}
+
+.pxb-align-r .tn-atom.active svg path,
+.pxb-align-l .tn-atom.active svg path {
+  fill: #ffffff;
+}
+
+.pxb-clear-input {
+  cursor: pointer;
 }
 
 .pxb-form-lang .t-select__wrapper:after {
@@ -107,6 +130,163 @@
     opacity: 0.3;
   }
 }
+
+/* Dark Theme */
+body.t-body.dark {
+  background-color: #1c1e26;
+}
+
+/* Header */
+body.t-body.dark .logo-light {
+  display: none;
+}
+
+body.t-body.dark .tn-elem[data-elem-id='1701241931439'] .tn-atom {
+  background-color: #121319 !important;
+  border-color: #8c743a !important;
+}
+
+body.t-body.dark .tn-elem[data-elem-id='1740170297798'] .tn-atom {
+  color: #ffffff !important;
+}
+
+.day-night-dark {
+  opacity: 0;
+}
+
+body.t-body.dark .day-night-dark {
+  opacity: 1;
+}
+
+body.t-body.dark .day-night-light {
+  opacity: 0;
+}
+
+/* End Header */
+
+/* Zaero Block Background */
+body.t-body.dark div[data-record-type='396'] .t396__artboard {
+  background-color: #1c1e26 !important;
+}
+
+/* Form inputs and select */
+body.t-body.dark .t396__elem .t-input,
+body.t-body.dark .t-select__wrapper select.t-select {
+  background-color: #121319 !important;
+  color: #ffffff !important;
+  border-color: #8c743a !important;
+}
+
+/* Step Titles */
+body.t-body.dark .t120__title,
+body.t-body.dark .t120__descr {
+  color: #ffffff !important;
+}
+
+/* Response */
+body.t-body.dark .pxb-response {
+  background-color: #121319 !important;
+  color: #ffffff !important;
+  border-color: #8c743a !important;
+}
+
+/* Text inside ZB */
+body.t-body.dark #rec870087472 .tn-elem[data-elem-id='1740166508837'] .tn-atom {
+  color: #ffffff !important;
+}
+
+body.t-body.dark div[data-record-type='128'],
+body.t-body.dark div[data-record-type='113'],
+body.t-body.dark div[data-record-type='106'] {
+  background-color: #1c1e26 !important;
+}
+
+/* input placeholder */
+body.t-body.dark ::placeholder {
+  color: #8c7a12 !important;
+  opacity: 0.9 !important; /* Firefox */
+}
+
+body.t-body.dark ::-ms-input-placeholder {
+  /* Edge 12 -18 */
+  color: #8c7a12 !important;
+  opacity: 0.9 !important; /* Firefox */
+}
+
+/* Scrollbar */
+/* scroll bar inside textarea for light theme */
+body.t-body .t-form textarea::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  background-color: #f5f5f5;
+}
+
+body.t-body .t-form textarea::-webkit-scrollbar-thumb {
+  background-color: #fcc94f;
+  border: 0px solid #f5f5f5;
+}
+
+body.t-body .t-form textarea::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+}
+
+/* scroll bar inside textarea for dark theme */
+body.t-body.dark .t-form textarea::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  background-color: #1c1e26;
+}
+
+body.t-body.dark .t-form textarea::-webkit-scrollbar-thumb {
+  background-color: #8c743a;
+  border: 0px solid #1c1e26;
+}
+
+body.t-body.dark .t-form textarea::-webkit-scrollbar-track {
+  background-color: #1c1e26;
+}
+
+/* Body Scrollbar for dark theme  */
+body.t-body.dark::-webkit-scrollbar {
+  width: 18px;
+  height: 18px;
+  background-color: #1c1e26;
+}
+
+body.t-body.dark::-webkit-scrollbar-track {
+  background-color: #1c1e26;
+}
+
+body.t-body.dark::-webkit-scrollbar-thumb {
+  background-color: #8c743a;
+  border-radius: 0px;
+  border: 5px solid #1c1e26;
+  background-clip: padding-box;
+}
+
+body.t-body.dark::-webkit-scrollbar-thumb:hover {
+  background-color: #1c1e26;
+}
+
+@supports (-moz-appearance: none) {
+  :root,
+  body.t-body.dark #allrecords * {
+    scrollbar-width: thin;
+    scrollbar-color: #1c1e26 #8c743a;
+  }
+}
+
+:root,
+body.t-body.dark #allrecords * {
+  -ms-scrollbar-track-color: #8c743a;
+  -ms-scrollbar-highlight-color: #8c743a;
+  -ms-scrollbar-shadow-color: #8c743a;
+  -ms-scrollbar-3dlight-color: #8c743a;
+  -ms-scrollbar-darkshadow-color: #8c743a;
+  -ms-scrollbar-face-color: #1c1e26;
+}
+
+/* End dark Theme */
 
 /* .loading-spinner {
   display: inline-block;

@@ -1,59 +1,68 @@
 // import { Observer } from './observer.js';
+(function () {
+  function pxb_ready(e) {
+    "loading" != document.readyState ? e() : document.addEventListener ? document.addEventListener("DOMContentLoaded", e) : document.attachEvent("onreadystatechange", (function () {
+      "loading" != document.readyState && e()
+    }))
+  }
 
-document.addEventListener("DOMContentLoaded", () => {
-  /** 
-     * Function to update the zoom level of a given element based on the window width
-     * Calculates an appropriate zoom level for responsive scaling
-     * @param {HTMLElement} element - The element to update zoom for
+  pxb_ready(function () {
+    // document.addEventListener("DOMContentLoaded", () => {
+    let ws_theme = localStorage.getItem('ws_theme') || 'dark';
+    if (ws_theme && ws_theme === 'dark') document.querySelector('body').classList.add('dark')
+    /** 
+       * Function to update the zoom level of a given element based on the window width
+       * Calculates an appropriate zoom level for responsive scaling
+       * @param {HTMLElement} element - The element to update zoom for
+      */
+    const updateZoom = (element) => {
+      const windowWidth = window.innerWidth;
+
+      // Apply zoom scaling for larger screens
+      if (windowWidth >= 1200) {
+        element.style.zoom = ((windowWidth - 1200) / 720) * 0.5 + 1;
+      }
+    };
+
+    /** 
+     * Universal function to select elements by ID or class name
+     * Provides a unified interface for selecting DOM elements
+     * @param {string} selector - The ID or class name of the element
+     * @returns {HTMLElement[]} - An array of elements matching the selector
     */
-  const updateZoom = (element) => {
-    const windowWidth = window.innerWidth;
+    const getElements = (selector) => {
+      if (selector.startsWith('#')) {
+        const element = document.getElementById(selector.slice(1));
+        return element ? [element] : [];
+      } else if (selector.startsWith('.')) {
+        return Array.from(document.querySelectorAll(selector));
+      } else {
+        console.warn(`Invalid selector '${selector}'. Use '#' for ID or '.' for class.`);
+        return [];
+      }
+    };
 
-    // Apply zoom scaling for larger screens
-    if (windowWidth >= 1200) {
-      element.style.zoom = ((windowWidth - 1200) / 720) * 0.5 + 1;
-    }
-  };
+    // List of Zoom Selectors (IDs or class names)
+    const zoomSelectors = [".uc-scale-container", '.uc-step_title1', '.uc-step_title2', '.uc-res'];
 
-  /** 
-   * Universal function to select elements by ID or class name
-   * Provides a unified interface for selecting DOM elements
-   * @param {string} selector - The ID or class name of the element
-   * @returns {HTMLElement[]} - An array of elements matching the selector
-  */
-  const getElements = (selector) => {
-    if (selector.startsWith('#')) {
-      const element = document.getElementById(selector.slice(1));
-      return element ? [element] : [];
-    } else if (selector.startsWith('.')) {
-      return Array.from(document.querySelectorAll(selector));
-    } else {
-      console.warn(`Invalid selector '${selector}'. Use '#' for ID or '.' for class.`);
-      return [];
-    }
-  };
+    // Initialize zoom for each selector
+    zoomSelectors.forEach((selector) => {
+      const elements = getElements(selector);
 
-  // List of Zoom Selectors (IDs or class names)
-  const zoomSelectors = [".uc-scale-container", '.uc-step_title1', '.uc-step_title2', '.uc-res'];
+      elements.forEach((element) => {
+        // Initial zoom adjustment
+        updateZoom(element);
 
-  // Initialize zoom for each selector
-  zoomSelectors.forEach((selector) => {
-    const elements = getElements(selector);
-
-    elements.forEach((element) => {
-      // Initial zoom adjustment
-      updateZoom(element);
-
-      // Update zoom on window resize
-      window.addEventListener("resize", () => updateZoom(element));
+        // Update zoom on window resize
+        window.addEventListener("resize", () => updateZoom(element));
+      });
     });
-  });
 
-  /**
-   * Begin the process of enhancing the prompt
-   * Wait for the page to be ready before initializing the main functionality
-   */
-  t_onReady(function () {
+    /**
+     * Begin the process of enhancing the prompt
+     * Wait for the page to be ready before initializing the main functionality
+     */
+    // t_onReady(function () { //we used it at the begening already
     t_onFuncLoad('t396_init', function () {
       // 1. Declare ALL variables at the top
       // Constants and configuration
@@ -63,7 +72,12 @@ document.addEventListener("DOMContentLoaded", () => {
       // UI element references - all initialized as null
       let appContainer = null;
       let prompt = null;
+      let emptyPrompt = null;
+      let emptyPromptAtom = null;
       let charCount = null;
+      let charCountAtom = null;
+      let rtlButton = null;
+      let ltrButton = null;
       let enhanceBtn = null;
       let copyPromptZB = null;
       let copyPromptBtn = null;
@@ -107,7 +121,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
           // Find all UI elements within the container
           prompt = appContainer.querySelector('textarea[name="origPrompt"]');
+          emptyPrompt = appContainer.querySelector('.pxb-clear-input');
           charCount = appContainer.querySelector('.pxb-char-count');
+          rtlButton = appContainer.querySelector('.pxb-align-r .tn-atom');
+          ltrButton = appContainer.querySelector('.pxb-align-l .tn-atom');
           enhanceBtn = appContainer.querySelector('.pxb-enhance');
           copyPromptZB = appContainer.querySelector('.uc-copy-prompt');
           step2Title = appContainer.querySelector('.uc-step_title2');
@@ -115,15 +132,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
           // Initialize nested elements if their parents exist
           if (charCount) {
-            const charCountAtom = charCount.querySelector('.tn-atom');
+            charCountAtom = charCount.querySelector('.tn-atom');
             if (charCountAtom) {
               charCountAtom.classList.add('gc');
             }
           }
 
+          if (emptyPrompt) {
+            emptyPromptAtom = emptyPrompt.querySelector('.tn-atom');
+            if (emptyPromptAtom) {
+              emptyPromptAtom.classList.add('disabled');
+
+              emptyPromptAtom.addEventListener('click', handleClearPromptClick);
+            }
+          }
+
           if (copyPromptZB) {
             copyPromptBtn = copyPromptZB.querySelector('.pxb-copy-prompt');
-            copyPromptZB.classList.add('disabled');
+            copyPromptZB.querySelector('.pxb-copy-prompt').classList.add('disabled');
           }
 
           if (responseAreaZB) {
@@ -167,6 +193,20 @@ document.addEventListener("DOMContentLoaded", () => {
             });
           }
 
+          // direction toggle
+          if (prompt && ltrButton && rtlButton) {
+            if (getComputedStyle(prompt).direction === 'rtl') {
+              rtlButton.classList.add('active');
+              ltrButton.classList.remove('active');
+            }
+
+            if (getComputedStyle(prompt).direction === 'ltr') {
+              ltrButton.classList.add('active');
+              rtlButton.classList.remove('active');
+            }
+            setupDirectionToggle(prompt, ltrButton, rtlButton);
+          }
+
           // Log successful initialization
           console.log('UI elements initialized successfully');
         }
@@ -206,6 +246,44 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       /**
+       * Sets up direction toggle buttons for a text input element
+       */
+      function setupDirectionToggle(inputElement, ltrButton, rtlButton) {
+
+        // Set up LTR button click handler
+        ltrButton.addEventListener('click', function () {
+          inputElement.style.direction = 'ltr';
+          inputElement.style.textAlign = 'left';
+
+          // Update button states
+          ltrButton.classList.add('active');
+          rtlButton.classList.remove('active');
+        });
+
+        // Set up RTL button click handler
+        rtlButton.addEventListener('click', function () {
+          inputElement.style.direction = 'rtl';
+          inputElement.style.textAlign = 'right';
+
+          // Update button states
+          rtlButton.classList.add('active');
+          ltrButton.classList.remove('active');
+        });
+      }
+
+      /**
+       * Handle Clear input BTN
+       * This clear input textarea, disable enhanceBTN, clear the charCount, and clear the body.prompt
+       */
+      function handleClearPromptClick() {
+        prompt.value = '';
+        enhanceBtn.classList.add('disabled');
+        charCountAtom.innerHTML = `0 / 500`;
+        body.prompt = ''
+        emptyPromptAtom.classList.add('disabled');
+      }
+
+      /**
        * Handle input events for the prompt textarea
        * This validates input length and updates UI accordingly
        */
@@ -219,9 +297,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (inputValue !== '' && enhanceBtn) {
           // Enable the div by removing the 'disabled' class
           enhanceBtn.classList.remove('disabled');
+          emptyPromptAtom.classList.remove('disabled');
         } else if (enhanceBtn) {
           // Disable the BTN by adding the 'disabled' class
           enhanceBtn.classList.add('disabled');
+          emptyPromptAtom.classList.add('disabled');
         }
 
         // Truncate the input if it exceeds the maximum length
@@ -276,7 +356,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Hide copy button until response is ready
         if (copyPromptZB) {
-          copyPromptZB.classList.add('disabled');
+          copyPromptZB.querySelector('.pxb-copy-prompt').classList.add('disabled');
         }
 
         // Get the language selected by the user
@@ -327,7 +407,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
               // Re-enable UI elements
               if (copyPromptZB) {
-                copyPromptZB.classList.remove('disabled');
+                copyPromptZB.querySelector('.pxb-copy-prompt').classList.remove('disabled');
               }
 
               if (enhanceBtn && enhanceBtnAtom) {
@@ -435,7 +515,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }
 
           if (copyPromptZB) {
-            copyPromptZB.classList.add('disabled');
+            copyPromptZB.querySelector('.pxb-copy-prompt').classList.add('disabled');
           }
 
           // Get the selected option value
@@ -512,7 +592,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       };
       xhr.send();
-    });
-  });
 
-});
+      const dayNight = document.querySelector('.day-night .tn-atom')
+      dayNight.addEventListener('click', () => {
+        const body = document.querySelector('body')
+        body.classList.toggle('dark')
+        ws_theme = localStorage.setItem('ws_theme', `${body.classList.contains('dark') ? 'dark' : 'lihgt'}`);
+      });
+    });
+    // }); // for t_onReady
+
+    // });
+  });
+})()
